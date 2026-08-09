@@ -43,7 +43,7 @@ header p{
   margin-top:2px;
 }
 
-#InstalarApp{
+#Instalar App{
   display:none;
   margin:8px auto 0;
   border:none;
@@ -1952,7 +1952,7 @@ let deferredPrompt=null;
 
 const instalarBtn=
   document.getElementById(
-    'InstalarApp'
+    'Instalar App'
   );
 
 window.addEventListener(
@@ -1963,13 +1963,13 @@ window.addEventListener(
 
     deferredPrompt=e;
 
-    instalarBtn.style.display=
+    InstalarBtn.style.display=
       'block';
   }
 );
 
 
-instalarBtn.addEventListener(
+InstalarBtn.addEventListener(
   'click',
   async()=>{
 
@@ -1989,7 +1989,7 @@ instalarBtn.addEventListener(
 
     deferredPrompt=null;
 
-    instalarBtn.style.display=
+    InstalarBtn.style.display=
       'none';
   }
 );
