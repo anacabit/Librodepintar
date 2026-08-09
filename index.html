@@ -553,19 +553,7 @@ window.addEventListener('DOMContentLoaded',()=>{
 });
 window.addEventListener('resize',resizeCanvas);
 </script>
-  <script>
-if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./service-worker.js")
-        .then(() => {
-            console.log("Service Worker registrado");
-        })
-        .catch((error) => {
-            console.log("Error:", error);
-        });
-    });
-}
-</script>
+
   <script>
 /* ===============================
    INSTALACIÓN DE LA APP
