@@ -1,8 +1,8 @@
+
 <!DOCTYPE html><html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>🎨 Mi Libro de Colorear</title><link rel="manifest" href="manifest.json">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>🎨 Mi Libro de Colorear</title><link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#4CAF50">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default"><style>
@@ -44,14 +44,14 @@ header p{
 }
 
 #InstalarApp{
+  display:none;
   margin:8px auto 0;
-  padding:8px 16px;
-  border:0;
-  border-radius:12px;
+  border:none;
   background:white;
-  color:#FF6B9D;
-  font-weight:700;
-  cursor:pointer;
+  color:#E91E63;
+  padding:8px 16px;
+  border-radius:20px;
+  font-weight:bold;
 }
 
 #gallery{
@@ -114,6 +114,7 @@ header p{
   display:block;
   cursor:crosshair;
   touch-action:none;
+  background:white;
 }
 
 #palette-wrap{
@@ -223,7 +224,7 @@ header p{
 }
 </style></head><body><header>
   <h1>🎨 Mi Libro de Colorear</h1>
-  <p>¡Toca una zona y pinta con el color!</p>  <button id="InstalarApp" style="display:none;">
+  <p>¡Toca una zona y pinta con el color!</p>  <button id="InstalarApp">
     📱 Instalar App
   </button>
 </header><div id="gallery"></div><div id="drawing-label">Cargando...</div><div id="canvas-wrap">
@@ -231,19 +232,20 @@ header p{
 </div><div id="palette-wrap">
   <h3>🖌️ Elige tu color</h3>
   <div id="palette"></div>
-</div><div id="actions">
-  <button class="abtn" id="btn-borra">
-    <span>🩹</span>Borrador
+</div><div id="actions">  <button class="abtn" id="btn-borra">
+    <span>🩹</span>
+    Borrador
   </button>  <button class="abtn" id="btn-limpia">
-    <span>🗑️</span>Limpiar
+    <span>🗑️</span>
+    Limpiar
   </button>  <button class="abtn" id="btn-guarda">
-    <span>💾</span>Guardar
-  </button>
-</div><div id="toast"></div><script>
+    <span>💾</span>
+    Guardar
+  </button></div><div id="toast"></div><script>
 
-// ════════════════════════════════════════
-// PALETA
-// ════════════════════════════════════════
+/* =====================================================
+   PALETA
+===================================================== */
 
 const COLORS=[
   '#FF3B30',
@@ -261,540 +263,706 @@ const COLORS=[
 ];
 
 
-// ════════════════════════════════════════
-// DIBUJOS
-// ════════════════════════════════════════
+/* =====================================================
+   DIBUJOS
+===================================================== */
 
 const DRAWINGS=[
 
-
-// ────────────────────────────────────────
-// 1. FLOR
-// ────────────────────────────────────────
+/* =====================================================
+   1. FLOR
+   IMPORTANTE:
+   EL TALLO ESTÁ ANTES QUE LOS PÉTALOS.
+   POR ESO QUEDA DETRÁS.
+===================================================== */
 
 {
-name:'🌸 Flor',
-vb:'0 0 300 300',
+ name:'🌸 Flor',
+ vb:'0 0 300 300',
 
-zones:[
+ zones:[
 
-{t:'ellipse',a:{cx:150,cy:82,rx:26,ry:48}},
-{t:'ellipse',a:{cx:150,cy:82,rx:26,ry:48,transform:'rotate(60,150,150)'}},
-{t:'ellipse',a:{cx:150,cy:82,rx:26,ry:48,transform:'rotate(120,150,150)'}},
-{t:'ellipse',a:{cx:150,cy:82,rx:26,ry:48,transform:'rotate(180,150,150)'}},
-{t:'ellipse',a:{cx:150,cy:82,rx:26,ry:48,transform:'rotate(240,150,150)'}},
-{t:'ellipse',a:{cx:150,cy:82,rx:26,ry:48,transform:'rotate(300,150,150)'}},
+   /* TALLO */
+   {
+     t:'rect',
+     a:{
+       x:143,
+       y:145,
+       width:14,
+       height:112,
+       rx:7
+     }
+   },
 
-{t:'circle',a:{cx:150,cy:150,r:36}},
+   /* HOJA IZQUIERDA */
+   {
+     t:'ellipse',
+     a:{
+       cx:116,
+       cy:226,
+       rx:35,
+       ry:17,
+       transform:'rotate(-25,116,226)'
+     }
+   },
 
-{t:'rect',a:{x:144,y:184,width:12,height:70,rx:6}},
+   /* HOJA DERECHA */
+   {
+     t:'ellipse',
+     a:{
+       cx:184,
+       cy:240,
+       rx:35,
+       ry:17,
+       transform:'rotate(25,184,240)'
+     }
+   },
 
-{t:'ellipse',a:{
-  cx:120,cy:228,rx:26,ry:13,
-  transform:'rotate(-30,120,228)'
-}},
+   /* PÉTALOS */
+   {
+     t:'ellipse',
+     a:{
+       cx:150,
+       cy:82,
+       rx:30,
+       ry:55
+     }
+   },
 
-{t:'ellipse',a:{
-  cx:180,cy:244,rx:26,ry:13,
-  transform:'rotate(30,180,244)'
-}}
+   {
+     t:'ellipse',
+     a:{
+       cx:150,
+       cy:82,
+       rx:30,
+       ry:55,
+       transform:'rotate(60,150,150)'
+     }
+   },
 
-],
+   {
+     t:'ellipse',
+     a:{
+       cx:150,
+       cy:82,
+       rx:30,
+       ry:55,
+       transform:'rotate(120,150,150)'
+     }
+   },
 
-decos:[
+   {
+     t:'ellipse',
+     a:{
+       cx:150,
+       cy:82,
+       rx:30,
+       ry:55,
+       transform:'rotate(180,150,150)'
+     }
+   },
 
-{t:'circle',a:{cx:150,cy:138,r:4}},
-{t:'circle',a:{cx:162,cy:144,r:4}},
-{t:'circle',a:{cx:162,cy:156,r:4}},
-{t:'circle',a:{cx:150,cy:162,r:4}},
-{t:'circle',a:{cx:138,cy:156,r:4}},
-{t:'circle',a:{cx:138,cy:144,r:4}}
+   {
+     t:'ellipse',
+     a:{
+       cx:150,
+       cy:82,
+       rx:30,
+       ry:55,
+       transform:'rotate(240,150,150)'
+     }
+   },
 
-]
+   {
+     t:'ellipse',
+     a:{
+       cx:150,
+       cy:82,
+       rx:30,
+       ry:55,
+       transform:'rotate(300,150,150)'
+     }
+   },
+
+   /* CENTRO */
+   {
+     t:'circle',
+     a:{
+       cx:150,
+       cy:150,
+       r:38
+     }
+   }
+
+ ],
+
+ decos:[
+   {
+     t:'circle',
+     a:{cx:150,cy:138,r:4}
+   },
+   {
+     t:'circle',
+     a:{cx:163,cy:144,r:4}
+   },
+   {
+     t:'circle',
+     a:{cx:163,cy:157,r:4}
+   },
+   {
+     t:'circle',
+     a:{cx:150,cy:163,r:4}
+   },
+   {
+     t:'circle',
+     a:{cx:137,cy:157,r:4}
+   },
+   {
+     t:'circle',
+     a:{cx:137,cy:144,r:4}
+   }
+ ]
 },
 
 
-// ────────────────────────────────────────
-// 2. MARIPOSA
-// ────────────────────────────────────────
+/* =====================================================
+   2. MARIPOSA
+===================================================== */
 
 {
-name:'🦋 Mariposa',
-vb:'0 0 300 300',
+ name:'🦋 Mariposa',
+ vb:'0 0 300 300',
 
-zones:[
+ zones:[
+   {t:'ellipse',a:{cx:88,cy:118,rx:68,ry:52}},
+   {t:'ellipse',a:{cx:212,cy:118,rx:68,ry:52}},
+   {t:'ellipse',a:{cx:94,cy:198,rx:50,ry:40}},
+   {t:'ellipse',a:{cx:206,cy:198,rx:50,ry:40}},
+   {t:'circle',a:{cx:78,cy:108,r:14}},
+   {t:'circle',a:{cx:108,cy:132,r:10}},
+   {t:'circle',a:{cx:222,cy:108,r:14}},
+   {t:'circle',a:{cx:192,cy:132,r:10}},
+   {t:'ellipse',a:{cx:150,cy:158,rx:9,ry:52}},
+   {t:'circle',a:{cx:150,cy:96,r:12}}
+ ],
 
-{t:'ellipse',a:{cx:88,cy:118,rx:68,ry:52}},
-{t:'ellipse',a:{cx:212,cy:118,rx:68,ry:52}},
-{t:'ellipse',a:{cx:94,cy:198,rx:50,ry:40}},
-{t:'ellipse',a:{cx:206,cy:198,rx:50,ry:40}},
-
-{t:'circle',a:{cx:78,cy:108,r:14}},
-{t:'circle',a:{cx:108,cy:132,r:10}},
-{t:'circle',a:{cx:222,cy:108,r:14}},
-{t:'circle',a:{cx:192,cy:132,r:10}},
-
-{t:'ellipse',a:{cx:150,cy:158,rx:9,ry:52}},
-
-{t:'circle',a:{cx:150,cy:96,r:12}},
-{t:'circle',a:{cx:126,cy:60,r:5}},
-{t:'circle',a:{cx:174,cy:60,r:5}}
-
-],
-
-decos:[
-
-{t:'line',a:{x1:144,y1:86,x2:128,y2:62}},
-{t:'line',a:{x1:156,y1:86,x2:172,y2:62}}
-
-]
+ decos:[
+   {t:'line',a:{x1:144,y1:86,x2:128,y2:62}},
+   {t:'line',a:{x1:156,y1:86,x2:172,y2:62}}
+ ]
 },
 
 
-// ────────────────────────────────────────
-// 3. PEZ
-// ────────────────────────────────────────
+/* =====================================================
+   3. PEZ
+===================================================== */
 
 {
-name:'🐟 Pez',
-vb:'0 0 300 300',
+ name:'🐟 Pez',
+ vb:'0 0 300 300',
 
-zones:[
+ zones:[
+   {t:'polygon',a:{points:'232,150 274,110 274,190'}},
+   {t:'ellipse',a:{cx:136,cy:150,rx:94,ry:64}},
+   {t:'polygon',a:{points:'100,88 132,64 162,88'}},
+   {t:'ellipse',a:{cx:118,cy:172,rx:28,ry:13,transform:'rotate(20,118,172)'}},
+   {t:'circle',a:{cx:70,cy:138,r:18}},
+   {t:'circle',a:{cx:68,cy:138,r:9}},
+   {t:'circle',a:{cx:36,cy:116,r:8}},
+   {t:'circle',a:{cx:22,cy:98,r:5}}
+ ],
 
-{t:'polygon',a:{
-  points:'232,150 274,110 274,190'
-}},
-
-{t:'ellipse',a:{
-  cx:136,cy:150,rx:94,ry:64
-}},
-
-{t:'polygon',a:{
-  points:'100,88 132,64 162,88'
-}},
-
-{t:'ellipse',a:{
-  cx:118,cy:172,
-  rx:28,ry:13,
-  transform:'rotate(20,118,172)'
-}},
-
-{t:'circle',a:{cx:70,cy:138,r:18}},
-{t:'circle',a:{cx:68,cy:138,r:9}},
-{t:'circle',a:{cx:36,cy:116,r:8}},
-{t:'circle',a:{cx:22,cy:98,r:5}}
-
-],
-
-decos:[
-
-{t:'circle',a:{cx:110,cy:142,r:18,fill:'none'}},
-{t:'circle',a:{cx:140,cy:148,r:18,fill:'none'}},
-{t:'circle',a:{cx:170,cy:142,r:18,fill:'none'}},
-{t:'path',a:{
-  d:'M48,154 Q56,164 48,170',
-  fill:'none'
-}}
-
-]
+ decos:[
+   {t:'circle',a:{cx:110,cy:142,r:18}},
+   {t:'circle',a:{cx:140,cy:148,r:18}},
+   {t:'circle',a:{cx:170,cy:142,r:18}},
+   {t:'path',a:{d:'M48,154 Q56,164 48,170'}}
+ ]
 },
 
 
-// ════════════════════════════════════════
-// 4. ARCOÍRIS CORREGIDO
-// ════════════════════════════════════════
+/* =====================================================
+   4. ARCOÍRIS
+===================================================== */
 
 {
-name:'🌈 Arcoíris',
-vb:'0 0 300 300',
+ name:'🌈 Arcoíris',
+ vb:'0 0 300 300',
 
-zones:[
+ zones:[
+   {t:'path',a:{d:'M22,200 A128,128 0 0,1 278,200 L258,200 A108,108 0 0,0 42,200 Z'}},
+   {t:'path',a:{d:'M42,200 A108,108 0 0,1 258,200 L238,200 A88,88 0 0,0 62,200 Z'}},
+   {t:'path',a:{d:'M62,200 A88,88 0 0,1 238,200 L218,200 A68,68 0 0,0 82,200 Z'}},
+   {t:'path',a:{d:'M82,200 A68,68 0 0,1 218,200 L198,200 A48,48 0 0,0 102,200 Z'}},
+   {t:'path',a:{d:'M102,200 A48,48 0 0,1 198,200 L178,200 A28,28 0 0,0 122,200 Z'}},
 
-/*
- FONDO DEL CIELO
- Es una zona independiente.
- Al tocar el cielo se puede colorear.
-*/
+   /* CIELO DE FONDO */
+   {
+     t:'rect',
+     a:{
+       x:0,
+       y:0,
+       width:300,
+       height:300,
+       rx:14
+     }
+   },
 
-{
-  t:'rect',
-  a:{
-    x:8,
-    y:8,
-    width:284,
-    height:284,
-    rx:18
-  }
-},
+   /* NUBES */
+   {t:'ellipse',a:{cx:50,cy:210,rx:32,ry:22}},
+   {t:'ellipse',a:{cx:28,cy:220,rx:24,ry:18}},
+   {t:'ellipse',a:{cx:70,cy:218,rx:24,ry:16}},
 
-/*
- FRANJA 1
-*/
+   {t:'ellipse',a:{cx:250,cy:210,rx:32,ry:22}},
+   {t:'ellipse',a:{cx:272,cy:220,rx:24,ry:18}},
+   {t:'ellipse',a:{cx:230,cy:218,rx:24,ry:16}},
 
-{
-  t:'path',
-  a:{
-    d:'M22,200 A128,128 0 0 1 278,200 L258,200 A108,108 0 0 0 42,200 Z'
-  }
-},
+   /* SOL */
+   {t:'circle',a:{cx:150,cy:258,r:26}}
+ ],
 
-/*
- FRANJA 2
-*/
-
-{
-  t:'path',
-  a:{
-    d:'M42,200 A108,108 0 0 1 258,200 L238,200 A88,88 0 0 0 62,200 Z'
-  }
-},
-
-/*
- FRANJA 3
-*/
-
-{
-  t:'path',
-  a:{
-    d:'M62,200 A88,88 0 0 1 238,200 L218,200 A68,68 0 0 0 82,200 Z'
-  }
-},
-
-/*
- FRANJA 4
-*/
-
-{
-  t:'path',
-  a:{
-    d:'M82,200 A68,68 0 0 1 218,200 L198,200 A48,48 0 0 0 102,200 Z'
-  }
-},
-
-/*
- FRANJA 5
-*/
-
-{
-  t:'path',
-  a:{
-    d:'M102,200 A48,48 0 0 1 198,200 L178,200 A28,28 0 0 0 122,200 Z'
-  }
-},
-
-/*
- CENTRO DEL ARCO
-*/
-
-{
-  t:'path',
-  a:{
-    d:'M118,200 A32,32 0 0 1 182,200 L118,200 Z'
-  }
-},
-
-/*
- NUBE IZQUIERDA
-*/
-
-{
-  t:'ellipse',
-  a:{
-    cx:50,
-    cy:210,
-    rx:32,
-    ry:22
-  }
-},
-
-{
-  t:'ellipse',
-  a:{
-    cx:28,
-    cy:220,
-    rx:24,
-    ry:18
-  }
-},
-
-{
-  t:'ellipse',
-  a:{
-    cx:70,
-    cy:218,
-    rx:24,
-    ry:16
-  }
-},
-
-/*
- NUBE DERECHA
-*/
-
-{
-  t:'ellipse',
-  a:{
-    cx:250,
-    cy:210,
-    rx:32,
-    ry:22
-  }
-},
-
-{
-  t:'ellipse',
-  a:{
-    cx:272,
-    cy:220,
-    rx:24,
-    ry:18
-  }
-},
-
-{
-  t:'ellipse',
-  a:{
-    cx:230,
-    cy:218,
-    rx:24,
-    ry:16
-  }
-},
-
-/*
- SOL
-*/
-
-{
-  t:'circle',
-  a:{
-    cx:150,
-    cy:258,
-    r:26
-  }
-}
-
-],
-
-decos:[
-
-{
-  t:'line',
-  a:{
-    x1:18,
-    y1:200,
-    x2:282,
-    y2:200
-  }
-},
-
-{
-  t:'line',
-  a:{
-    x1:150,
-    y1:224,
-    x2:150,
-    y2:215
-  }
-},
-
-{
-  t:'line',
-  a:{
-    x1:168,
-    y1:228,
-    x2:174,
-    y2:220
-  }
-},
-
-{
-  t:'line',
-  a:{
-    x1:182,
-    y1:242,
-    x2:190,
-    y2:236
-  }
-},
-
-{
-  t:'line',
-  a:{
-    x1:132,
-    y1:228,
-    x2:126,
-    y2:220
-  }
-},
-
-{
-  t:'line',
-  a:{
-    x1:118,
-    y1:242,
-    x2:110,
-    y2:236
-  }
-}
-
-]
+ decos:[
+   {t:'line',a:{x1:18,y1:200,x2:282,y2:200}},
+   {t:'line',a:{x1:150,y1:224,x2:150,y2:215}},
+   {t:'line',a:{x1:168,y1:228,x2:174,y2:220}},
+   {t:'line',a:{x1:182,y1:242,x2:190,y2:236}},
+   {t:'line',a:{x1:132,y1:228,x2:126,y2:220}},
+   {t:'line',a:{x1:118,y1:242,x2:110,y2:236}}
+ ]
 },
 
 
-// ────────────────────────────────────────
-// 5. CASITA
-// ────────────────────────────────────────
+/* =====================================================
+   5. CASITA
+===================================================== */
 
 {
-name:'🏠 Casita',
-vb:'0 0 300 300',
+ name:'🏠 Casita',
+ vb:'0 0 300 300',
 
-zones:[
+ zones:[
+   {t:'rect',a:{x:54,y:154,width:192,height:118,rx:4}},
+   {t:'polygon',a:{points:'38,158 150,60 262,158'}},
+   {t:'rect',a:{x:194,y:78,width:28,height:56,rx:4}},
+   {t:'rect',a:{x:122,y:194,width:56,height:78,rx:6}},
+   {t:'rect',a:{x:70,y:178,width:50,height:46,rx:5}},
+   {t:'rect',a:{x:180,y:178,width:50,height:46,rx:5}},
+   {t:'rect',a:{x:18,y:268,width:264,height:26,rx:6}},
+   {t:'circle',a:{cx:164,cy:238,r:5}},
+   {t:'ellipse',a:{cx:50,cy:94,rx:26,ry:16}},
+   {t:'ellipse',a:{cx:34,cy:102,rx:18,ry:12}},
+   {t:'ellipse',a:{cx:66,cy:102,rx:18,ry:12}}
+ ],
 
-{t:'rect',a:{
-  x:54,y:154,width:192,height:118,rx:4
-}},
-
-{t:'polygon',a:{
-  points:'38,158 150,60 262,158'
-}},
-
-{t:'rect',a:{
-  x:194,y:78,width:28,height:56,rx:4
-}},
-
-{t:'rect',a:{
-  x:122,y:194,width:56,height:78,rx:6
-}},
-
-{t:'rect',a:{
-  x:70,y:178,width:50,height:46,rx:5
-}},
-
-{t:'rect',a:{
-  x:180,y:178,width:50,height:46,rx:5
-}},
-
-{t:'rect',a:{
-  x:18,y:268,width:264,height:26,rx:6
-}},
-
-{t:'circle',a:{
-  cx:164,cy:238,r:5
-}},
-
-{t:'ellipse',a:{
-  cx:50,cy:94,rx:26,ry:16
-}},
-
-{t:'ellipse',a:{
-  cx:34,cy:102,rx:18,ry:12
-}},
-
-{t:'ellipse',a:{
-  cx:66,cy:102,rx:18,ry:12
-}},
-
-{t:'ellipse',a:{
-  cx:208,cy:66,rx:9,ry:6
-}},
-
-{t:'ellipse',a:{
-  cx:202,cy:56,rx:7,ry:5
-}}
-
-],
-
-decos:[
-
-{t:'line',a:{
-  x1:95,y1:178,x2:95,y2:224
-}},
-
-{t:'line',a:{
-  x1:70,y1:201,x2:120,y2:201
-}},
-
-{t:'line',a:{
-  x1:205,y1:178,x2:205,y2:224
-}},
-
-{t:'line',a:{
-  x1:180,y1:201,x2:230,y2:201
-}}
-
-]
+ decos:[
+   {t:'line',a:{x1:95,y1:178,x2:95,y2:224}},
+   {t:'line',a:{x1:70,y1:201,x2:120,y2:201}},
+   {t:'line',a:{x1:205,y1:178,x2:205,y2:224}},
+   {t:'line',a:{x1:180,y1:201,x2:230,y2:201}}
+ ]
 },
 
 
-// ────────────────────────────────────────
-// 6. ESTRELLA
-// ────────────────────────────────────────
+/* =====================================================
+   6. ESTRELLA
+===================================================== */
 
 {
-name:'⭐ Estrella',
-vb:'0 0 300 300',
+ name:'⭐ Estrella',
+ vb:'0 0 300 300',
 
-zones:[
+ zones:[
+   {
+     t:'rect',
+     a:{x:0,y:0,width:300,height:300,rx:14}
+   },
 
-{
-  t:'rect',
-  a:{
-    x:0,
-    y:0,
-    width:300,
-    height:300,
-    rx:14
-  }
+   {
+     t:'polygon',
+     a:{
+       points:'150,28 179,108 265,108 198,160 222,242 150,194 78,242 102,160 35,108 121,108'
+     }
+   },
+
+   {
+     t:'path',
+     a:{
+       d:'M240,55 C224,60 214,74 214,90 C214,110 228,126 246,126 C254,126 262,122 268,116 C260,132 244,142 226,142 C202,142 182,122 182,98 C182,74 202,54 226,54 C231,54 236,54 240,55 Z'
+     }
+   }
+ ],
+
+ decos:[]
 },
 
+
+/* =====================================================
+   7. MANZANA
+===================================================== */
+
 {
-  t:'polygon',
-  a:{
-    points:'150,28 179,108 265,108 198,160 222,242 150,194 78,242 102,160 35,108 121,108'
-  }
+ name:'🍎 Manzana',
+ vb:'0 0 300 300',
+
+ zones:[
+   {
+     t:'path',
+     a:{
+       d:'M150,90 C120,55 65,70 55,125 C45,185 88,245 150,260 C212,245 255,185 245,125 C235,70 180,55 150,90 Z'
+     }
+   },
+
+   {
+     t:'rect',
+     a:{x:145,y:45,width:12,height:55,rx:5}
+   },
+
+   {
+     t:'ellipse',
+     a:{
+       cx:180,
+       cy:58,
+       rx:32,
+       ry:15,
+       transform:'rotate(-20,180,58)'
+     }
+   }
+ ],
+
+ decos:[
+   {t:'line',a:{x1:150,y1:105,x2:150,y2:245}}
+ ]
 },
 
+
+/* =====================================================
+   8. SOL
+===================================================== */
+
 {
-  t:'path',
-  a:{
-    d:'M240,55 C224,60 214,74 214,90 C214,110 228,126 246,126 C254,126 262,122 268,116 C260,132 244,142 226,142 C202,142 182,122 182,98 C182,74 202,54 226,54 C231,54 236,54 240,55 Z'
-  }
+ name:'☀️ Sol',
+ vb:'0 0 300 300',
+
+ zones:[
+   {
+     t:'circle',
+     a:{cx:150,cy:150,r:70}
+   },
+
+   {t:'polygon',a:{points:'150,15 162,62 138,62'}},
+   {t:'polygon',a:{points:'285,150 238,162 238,138'}},
+   {t:'polygon',a:{points:'150,285 138,238 162,238'}},
+   {t:'polygon',a:{points:'15,150 62,138 62,162'}},
+
+   {t:'polygon',a:{points:'245,55 210,90 195,75'}},
+   {t:'polygon',a:{points:'245,245 195,225 210,210'}},
+   {t:'polygon',a:{points:'55,245 90,210 105,225'}},
+   {t:'polygon',a:{points:'55,55 105,75 90,90'}}
+ ],
+
+ decos:[
+   {t:'circle',a:{cx:128,cy:140,r:5}},
+   {t:'circle',a:{cx:172,cy:140,r:5}},
+   {t:'path',a:{d:'M125,170 Q150,190 175,170'}}
+ ]
 },
 
+
+/* =====================================================
+   9. CORAZÓN
+===================================================== */
+
 {
-  t:'polygon',
-  a:{
-    points:'50,48 54,60 66,60 56,68 60,80 50,72 40,80 44,68 34,60 46,60'
-  }
+ name:'❤️ Corazón',
+ vb:'0 0 300 300',
+
+ zones:[
+   {
+     t:'path',
+     a:{
+       d:'M150,250 C130,225 45,175 45,105 C45,65 75,45 108,45 C130,45 145,58 150,78 C155,58 170,45 192,45 C225,45 255,65 255,105 C255,175 170,225 150,250 Z'
+     }
+   },
+
+   {
+     t:'circle',
+     a:{cx:105,cy:95,r:10}
+   },
+
+   {
+     t:'circle',
+     a:{cx:195,cy:95,r:10}
+   }
+ ],
+
+ decos:[
+   {t:'path',a:{d:'M110,145 Q150,175 190,145'}}
+ ]
 },
 
+
+/* =====================================================
+   10. HELADO
+===================================================== */
+
 {
-  t:'polygon',
-  a:{
-    points:'240,196 243,205 252,205 245,210 248,219 240,214 232,219 235,210 228,205 237,205'
-  }
+ name:'🍦 Helado',
+ vb:'0 0 300 300',
+
+ zones:[
+   {
+     t:'polygon',
+     a:{points:'105,135 195,135 150,270'}
+   },
+
+   {
+     t:'ellipse',
+     a:{cx:150,cy:115,rx:62,ry:55}
+   },
+
+   {
+     t:'ellipse',
+     a:{cx:112,cy:85,rx:42,ry:35}
+   },
+
+   {
+     t:'ellipse',
+     a:{cx:188,cy:85,rx:42,ry:35}
+   }
+ ],
+
+ decos:[
+   {t:'line',a:{x1:120,y1:160,x2:180,y2:245}},
+   {t:'line',a:{x1:180,y1:160,x2:120,y2:245}}
+ ]
 },
 
+
+/* =====================================================
+   11. GLOBO
+===================================================== */
+
 {
-  t:'polygon',
-  a:{
-    points:'54,212 57,221 66,221 59,226 62,235 54,230 46,235 49,226 42,221 51,221'
-  }
-}
+ name:'🎈 Globo',
+ vb:'0 0 300 300',
 
-],
+ zones:[
+   {
+     t:'ellipse',
+     a:{cx:150,cy:120,rx:75,ry:100}
+   },
 
-decos:[]
+   {
+     t:'polygon',
+     a:{points:'140,215 160,215 150,235'}
+   },
+
+   {
+     t:'path',
+     a:{d:'M150,235 Q130,255 150,280 Q170,255 150,235 Z'}
+   }
+ ],
+
+ decos:[
+   {t:'line',a:{x1:150,y1:235,x2:150,y2:280}}
+ ]
+},
+
+
+/* =====================================================
+   12. TREN
+===================================================== */
+
+{
+ name:'🚂 Tren',
+ vb:'0 0 300 300',
+
+ zones:[
+   {
+     t:'rect',
+     a:{x:45,y:125,width:210,height:100,rx:12}
+   },
+
+   {
+     t:'rect',
+     a:{x:70,y:75,width:80,height:55,rx:8}
+   },
+
+   {
+     t:'rect',
+     a:{x:165,y:95,width:65,height:35,rx:6}
+   },
+
+   {
+     t:'circle',
+     a:{cx:90,cy:230,r:25}
+   },
+
+   {
+     t:'circle',
+     a:{cx:210,cy:230,r:25}
+   },
+
+   {
+     t:'rect',
+     a:{x:150,y:45,width:25,height:35,rx:5}
+   }
+ ],
+
+ decos:[
+   {t:'line',a:{x1:60,y1:180,x2:240,y2:180}},
+   {t:'circle',a:{cx:100,cy:150,r:8}},
+   {t:'circle',a:{cx:130,cy:150,r:8}},
+   {t:'circle',a:{cx:160,cy:150,r:8}}
+ ]
+},
+
+
+/* =====================================================
+   13. CARACOL
+===================================================== */
+
+{
+ name:'🐌 Caracol',
+ vb:'0 0 300 300',
+
+ zones:[
+   {
+     t:'ellipse',
+     a:{cx:150,cy:190,rx:105,ry:45}
+   },
+
+   {
+     t:'circle',
+     a:{cx:145,cy:155,r:65}
+   },
+
+   {
+     t:'circle',
+     a:{cx:125,cy:140,r:12}
+   },
+
+   {
+     t:'circle',
+     a:{cx:185,cy:155,r:8}
+   }
+ ],
+
+ decos:[
+   {
+     t:'path',
+     a:{d:'M145,155 C110,155 105,115 145,115 C180,115 185,155 150,175'}
+   },
+
+   {t:'line',a:{x1:220,y1:160,x2:245,y2:125}},
+   {t:'line',a:{x1:245,y1:125,x2:255,y2:110}},
+   {t:'line',a:{x1:230,y1:160,x2:250,y2:145}},
+   {t:'line',a:{x1:250,y1:145,x2:265,y2:135}}
+ ]
+},
+
+
+/* =====================================================
+   14. MARIPOSA GRANDE
+===================================================== */
+
+{
+ name:'🦋 Mariposa Grande',
+ vb:'0 0 300 300',
+
+ zones:[
+   {t:'ellipse',a:{cx:85,cy:110,rx:65,ry:70}},
+   {t:'ellipse',a:{cx:215,cy:110,rx:65,ry:70}},
+   {t:'ellipse',a:{cx:95,cy:205,rx:55,ry:45}},
+   {t:'ellipse',a:{cx:205,cy:205,rx:55,ry:45}},
+   {t:'ellipse',a:{cx:150,cy:155,rx:13,ry:70}},
+   {t:'circle',a:{cx:150,cy:82,r:15}}
+ ],
+
+ decos:[
+   {t:'line',a:{x1:145,y1:70,x2:115,y2:35}},
+   {t:'line',a:{x1:155,y1:70,x2:185,y2:35}},
+   {t:'circle',a:{cx:80,cy:110,r:15}},
+   {t:'circle',a:{cx:220,cy:110,r:15}}
+ ]
+},
+
+
+/* =====================================================
+   15. NUBE
+===================================================== */
+
+{
+ name:'☁️ Nube',
+ vb:'0 0 300 300',
+
+ zones:[
+   {t:'ellipse',a:{cx:105,cy:165,rx:70,ry:50}},
+   {t:'ellipse',a:{cx:155,cy:130,rx:65,ry:65}},
+   {t:'ellipse',a:{cx:205,cy:165,rx:70,ry:50}},
+   {t:'rect',a:{x:70,y:165,width:160,height:50,rx:20}}
+ ],
+
+ decos:[
+   {t:'line',a:{x1:90,y1:235,x2:75,y2:255}},
+   {t:'line',a:{x1:150,y1:235,x2:140,y2:260}},
+   {t:'line',a:{x1:210,y1:235,x2:225,y2:255}}
+ ]
+},
+
+
+/* =====================================================
+   16. COHETE
+===================================================== */
+
+{
+ name:'🚀 Cohete',
+ vb:'0 0 300 300',
+
+ zones:[
+   {
+     t:'path',
+     a:{
+       d:'M150,35 C105,70 95,145 115,205 L185,205 C205,145 195,70 150,35 Z'
+     }
+   },
+
+   {
+     t:'circle',
+     a:{cx:150,cy:105,r:22}
+   },
+
+   {
+     t:'polygon',
+     a:{points:'115,170 70,215 115,205'}
+   },
+
+   {
+     t:'polygon',
+     a:{points:'185,170 230,215 185,205'}
+   },
+
+   {
+     t:'path',
+     a:{
+       d:'M125,205 Q150,250 175,205 Z'
+     }
+   }
+ ],
+
+ decos:[
+   {t:'circle',a:{cx:150,cy:105,r:9}},
+   {t:'line',a:{x1:135,y1:220,x2:125,y2:255}},
+   {t:'line',a:{x1:165,y1:220,x2:175,y2:255}}
+ ]
 }
 
 ];
 
 
-// ════════════════════════════════════════
-// ESTADO
-// ════════════════════════════════════════
+/* =====================================================
+   ESTADO
+===================================================== */
 
 let currentColor=COLORS[0];
 let isEraser=false;
@@ -805,20 +973,25 @@ const colors=DRAWINGS.map(
 );
 
 
-// ════════════════════════════════════════
-// CANVAS
-// ════════════════════════════════════════
+/* =====================================================
+   CANVAS
+===================================================== */
 
 const canvas=document.getElementById('paint-canvas');
 const ctx=canvas.getContext('2d');
 
 const STROKE='#222';
 const STROKE_W=2.5;
+
 const DECO_STROKE='#555';
 const DECO_W=1.5;
 
 const LOGIC=300;
 
+
+/* =====================================================
+   REDIMENSIONAR
+===================================================== */
 
 function resizeCanvas(){
 
@@ -835,15 +1008,14 @@ function resizeCanvas(){
   redraw();
 }
 
-
 function scale(){
   return canvas.width/LOGIC;
 }
 
 
-// ════════════════════════════════════════
-// DIBUJAR ELEMENTO
-// ════════════════════════════════════════
+/* =====================================================
+   DIBUJAR ELEMENTO
+===================================================== */
 
 function drawEl(el,fillColor,isDecoEl){
 
@@ -858,7 +1030,6 @@ function drawEl(el,fillColor,isDecoEl){
   ctx.beginPath();
 
   const A=el.a;
-
 
   if(el.t==='ellipse'){
 
@@ -954,6 +1125,7 @@ function drawEl(el,fillColor,isDecoEl){
     ctx.strokeStyle=DECO_STROKE;
     ctx.lineWidth=DECO_W*sc;
     ctx.lineCap='round';
+
     ctx.stroke();
 
   }else{
@@ -967,16 +1139,15 @@ function drawEl(el,fillColor,isDecoEl){
     ctx.lineJoin='round';
 
     ctx.stroke();
-
   }
 
   ctx.restore();
 }
 
 
-// ════════════════════════════════════════
-// TRANSFORMACIONES
-// ════════════════════════════════════════
+/* =====================================================
+   TRANSFORMACIONES
+===================================================== */
 
 function applyTransform(t,sc){
 
@@ -998,9 +1169,9 @@ function applyTransform(t,sc){
 }
 
 
-// ════════════════════════════════════════
-// PARSER SVG
-// ════════════════════════════════════════
+/* =====================================================
+   PARSER SVG
+===================================================== */
 
 function drawSVGPath(d,sc){
 
@@ -1024,7 +1195,7 @@ function drawSVGPath(d,sc){
 
     switch(type){
 
-      case'M':
+      case 'M':
 
         cx=nums[0];
         cy=nums[1];
@@ -1037,7 +1208,7 @@ function drawSVGPath(d,sc){
         break;
 
 
-      case'L':
+      case 'L':
 
         cx=nums[0];
         cy=nums[1];
@@ -1050,20 +1221,52 @@ function drawSVGPath(d,sc){
         break;
 
 
-      case'Z':
-      case'z':
+      case 'Z':
+      case 'z':
 
         ctx.closePath();
 
         break;
 
 
-      case'A':{
+      case 'Q':
 
-        const[
+        ctx.quadraticCurveTo(
+          nums[0]*sc,
+          nums[1]*sc,
+          nums[2]*sc,
+          nums[3]*sc
+        );
+
+        cx=nums[2];
+        cy=nums[3];
+
+        break;
+
+
+      case 'C':
+
+        ctx.bezierCurveTo(
+          nums[0]*sc,
+          nums[1]*sc,
+          nums[2]*sc,
+          nums[3]*sc,
+          nums[4]*sc,
+          nums[5]*sc
+        );
+
+        cx=nums[4];
+        cy=nums[5];
+
+        break;
+
+
+      case 'A':{
+
+        const [
           rx,
           ry,
-          rotation,
+          ,
           laf,
           sf,
           x,
@@ -1089,31 +1292,15 @@ function drawSVGPath(d,sc){
         break;
       }
 
-
-      case'Q':
-
-        ctx.quadraticCurveTo(
-          nums[0]*sc,
-          nums[1]*sc,
-          nums[2]*sc,
-          nums[3]*sc
-        );
-
-        cx=nums[2];
-        cy=nums[3];
-
-        break;
-
     }
 
   });
-
 }
 
 
-// ════════════════════════════════════════
-// ARCOS
-// ════════════════════════════════════════
+/* =====================================================
+   ARCO SVG
+===================================================== */
 
 function arcTo(
   ctx,
@@ -1128,12 +1315,17 @@ function arcTo(
   sc
 ){
 
-  if(
-    !isFinite(rx)||
-    !isFinite(ry)||
-    rx===0||
-    ry===0
-  ){
+  const dx=(x1-x2)/2;
+  const dy=(y1-y2)/2;
+
+  const mx=(x1+x2)/2;
+  const my=(y1+y2)/2;
+
+  const r=rx;
+
+  const d2=r*r-(dx*dx+dy*dy);
+
+  if(d2<0||r===0){
 
     ctx.lineTo(
       x2*sc,
@@ -1143,78 +1335,46 @@ function arcTo(
     return;
   }
 
-
-  /*
-   Para estos dibujos los arcos
-   son circulares y horizontales.
-  */
-
-  const dx=(x2-x1)/2;
-  const dy=(y2-y1)/2;
-
-  const dist=Math.sqrt(
-    dx*dx+dy*dy
-  );
-
-  if(dist===0){
-
-    return;
-  }
-
-
-  let r=Math.max(rx,ry);
-
-  if(r<dist){
-
-    r=dist;
-  }
-
-
-  const mx=(x1+x2)/2;
-  const my=(y1+y2)/2;
-
-  const h=Math.sqrt(
-    Math.max(0,r*r-dist*dist)
-  );
-
-
-  const nx=-dy/dist;
-  const ny=dx/dist;
+  const d=Math.sqrt(d2);
 
   const sign=(laf===sf)?-1:1;
 
-  const cx=mx+sign*h*nx;
-  const cy=my+sign*h*ny;
-
-
-  let start=Math.atan2(
-    y1-cy,
-    x1-cx
+  const len=Math.sqrt(
+    dx*dx+dy*dy
   );
 
-  let end=Math.atan2(
-    y2-cy,
-    x2-cx
+  const ccx=
+    mx+
+    sign*d*(-dy/len);
+
+  const ccy=
+    my+
+    sign*d*(dx/len);
+
+  const ang1=Math.atan2(
+    (y1-ccy)/r,
+    (x1-ccx)/r
   );
 
-
-  let anticlockwise=sf===0;
-
+  const ang2=Math.atan2(
+    (y2-ccy)/r,
+    (x2-ccx)/r
+  );
 
   ctx.arc(
-    cx*sc,
-    cy*sc,
+    ccx*sc,
+    ccy*sc,
     r*sc,
-    start,
-    end,
-    anticlockwise
+    ang1,
+    ang2,
+    sf===0
   );
 }
 
 
-// ════════════════════════════════════════
-// REDIBUJAR
-// ════════════════════════════════════════
+/* =====================================================
+   REDIBUJAR
+===================================================== */
 
 function redraw(){
 
@@ -1227,11 +1387,6 @@ function redraw(){
     canvas.height
   );
 
-
-  /*
-   Fondo blanco general del canvas.
-  */
-
   ctx.fillStyle='white';
 
   ctx.fillRect(
@@ -1240,11 +1395,6 @@ function redraw(){
     canvas.width,
     canvas.height
   );
-
-
-  /*
-   Dibujar zonas.
-  */
 
   d.zones.forEach((el,i)=>{
 
@@ -1256,11 +1406,6 @@ function redraw(){
 
   });
 
-
-  /*
-   Decoraciones.
-  */
-
   (d.decos||[]).forEach(el=>{
 
     drawEl(
@@ -1270,13 +1415,12 @@ function redraw(){
     );
 
   });
-
 }
 
 
-// ════════════════════════════════════════
-// HIT TEST
-// ════════════════════════════════════════
+/* =====================================================
+   DETECTAR ZONA
+===================================================== */
 
 function hitZone(px,py){
 
@@ -1284,30 +1428,21 @@ function hitZone(px,py){
 
   const sc=scale();
 
-
-  /*
-   Se recorre al revés para seleccionar
-   primero el elemento que está encima.
-  */
-
   for(
     let i=d.zones.length-1;
     i>=0;
     i--
   ){
 
-    const el=d.zones[i];
-
     if(
       isInZone(
-        el,
+        d.zones[i],
         px/sc,
         py/sc
       )
     ){
 
       return i;
-
     }
 
   }
@@ -1316,9 +1451,9 @@ function hitZone(px,py){
 }
 
 
-// ════════════════════════════════════════
-// DETECTAR ZONA
-// ════════════════════════════════════════
+/* =====================================================
+   COMPROBAR ZONA
+===================================================== */
 
 function isInZone(el,x,y){
 
@@ -1326,7 +1461,6 @@ function isInZone(el,x,y){
 
   let tx=x;
   let ty=y;
-
 
   if(A.transform){
 
@@ -1355,7 +1489,6 @@ function isInZone(el,x,y){
         dx*Math.sin(ang)+
         dy*Math.cos(ang);
     }
-
   }
 
 
@@ -1385,7 +1518,6 @@ function isInZone(el,x,y){
       ty>=A.y &&
       ty<=A.y+A.height
     );
-
   }
 
 
@@ -1398,109 +1530,25 @@ function isInZone(el,x,y){
         .split(' ')
         .map(p=>p.split(',').map(Number))
     );
-
   }
 
 
   if(el.t==='path'){
-
-    /*
-     Para el arcoíris hacemos una detección
-     especial por coordenadas para que cada
-     franja sea seleccionable correctamente.
-    */
-
-    if(
-      currentIdx===3
-    ){
-
-      return rainbowHit(
-        el,
-        tx,
-        ty
-      );
-
-    }
 
     return pointInPathBBox(
       tx,
       ty,
       A.d
     );
-
   }
-
 
   return false;
 }
 
 
-// ════════════════════════════════════════
-// DETECCIÓN DEL ARCOÍRIS
-// ════════════════════════════════════════
-
-function rainbowHit(el,x,y){
-
-  /*
-   Las franjas del arcoíris están entre
-   diferentes radios respecto al centro
-   (150,200).
-  */
-
-  if(
-    x<15 ||
-    x>285 ||
-    y<15 ||
-    y>292
-  ){
-
-    return false;
-  }
-
-
-  /*
-   No consideramos como arco la parte
-   inferior de las nubes/sol.
-  */
-
-  if(y>=200){
-
-    return false;
-  }
-
-
-  const dx=x-150;
-  const dy=y-200;
-
-  const r=Math.sqrt(
-    dx*dx+dy*dy
-  );
-
-
-  /*
-   Radio exterior aproximado.
-  */
-
-  if(
-    r<28 ||
-    r>130
-  ){
-
-    return false;
-  }
-
-
-  /*
-   Solo la mitad superior.
-  */
-
-  return dy<0;
-}
-
-
-// ════════════════════════════════════════
-// POLÍGONO
-// ════════════════════════════════════════
+/* =====================================================
+   POLÍGONO
+===================================================== */
 
 function pointInPolygon(x,y,pts){
 
@@ -1518,46 +1566,48 @@ function pointInPolygon(x,y,pts){
     const xj=pts[j][0];
     const yj=pts[j][1];
 
-
     if(
-      ((yi>y)!==(yj>y)) &&
+      ((yi>y)!=(yj>y)) &&
       (
         x<
-        (xj-xi)*
-        (y-yi)/
-        (yj-yi)+xi
+        (xj-xi)*(y-yi)/(yj-yi)+xi
       )
     ){
 
       inside=!inside;
-
     }
-
   }
 
   return inside;
 }
 
 
-// ════════════════════════════════════════
-// PATH BBOX
-// ════════════════════════════════════════
+/* =====================================================
+   BOUNDING BOX DE PATH
+===================================================== */
 
 function pointInPathBBox(x,y,d){
 
-  const nums=d.match(
-    /-?[\d.]+/g
-  )||[];
+  const nums=
+    d.match(/-?[\d.]+/g)||[];
 
   const ns=nums.map(Number);
 
-  const xs=ns.filter(
-    (_,i)=>i%2===0
-  );
+  const xs=[];
+  const ys=[];
 
-  const ys=ns.filter(
-    (_,i)=>i%2===1
-  );
+  for(let i=0;i<ns.length;i+=2){
+
+    xs.push(ns[i]);
+
+    if(ns[i+1]!==undefined){
+      ys.push(ns[i+1]);
+    }
+  }
+
+  if(!xs.length||!ys.length){
+    return false;
+  }
 
   const minX=Math.min(...xs);
   const maxX=Math.max(...xs);
@@ -1574,9 +1624,9 @@ function pointInPathBBox(x,y,d){
 }
 
 
-// ════════════════════════════════════════
-// TOQUE / CLICK
-// ════════════════════════════════════════
+/* =====================================================
+   POSICIÓN DEL TOQUE
+===================================================== */
 
 function getPos(e){
 
@@ -1584,8 +1634,8 @@ function getPos(e){
     canvas.getBoundingClientRect();
 
   const src=
-    e.touches?
-    e.touches[0]:
+    e.touches ?
+    e.touches[0] :
     e;
 
   return{
@@ -1595,24 +1645,27 @@ function getPos(e){
 }
 
 
+/* =====================================================
+   PINTAR
+===================================================== */
+
 function handlePaint(e){
 
   e.preventDefault();
 
-  const{x,y}=getPos(e);
+  const {x,y}=getPos(e);
 
   const zi=hitZone(x,y);
 
   if(zi<0)return;
 
   colors[currentIdx][zi]=
-    isEraser?
-    'white':
+    isEraser ?
+    'white' :
     currentColor;
 
   redraw();
 }
-
 
 canvas.addEventListener(
   'click',
@@ -1626,13 +1679,12 @@ canvas.addEventListener(
 );
 
 
-// ════════════════════════════════════════
-// GALERÍA
-// ════════════════════════════════════════
+/* =====================================================
+   GALERÍA
+===================================================== */
 
 const gallery=
   document.getElementById('gallery');
-
 
 DRAWINGS.forEach((d,i)=>{
 
@@ -1643,10 +1695,8 @@ DRAWINGS.forEach((d,i)=>{
     'thumb'+
     (i===0?' active':'');
 
-
   thumb.innerHTML=
     buildMiniSVG(d);
-
 
   thumb.addEventListener(
     'click',
@@ -1667,15 +1717,16 @@ DRAWINGS.forEach((d,i)=>{
         .textContent=d.name;
 
       redraw();
-
     }
   );
 
-
   gallery.appendChild(thumb);
-
 });
 
+
+/* =====================================================
+   MINIATURA
+===================================================== */
 
 function buildMiniSVG(d){
 
@@ -1684,32 +1735,29 @@ function buildMiniSVG(d){
 
   let s=
     `<svg viewBox="${d.vb}"
-     xmlns="${ns}"
-     width="56"
-     height="56">`;
-
+    xmlns="${ns}"
+    width="56"
+    height="56">`;
 
   d.zones.forEach(el=>{
 
     s+=
       `<${el.t}
-       fill="white"
-       stroke="#333"
-       stroke-width="3"
-       stroke-linecap="round"
-       stroke-linejoin="round"`;
+      fill="white"
+      stroke="#333"
+      stroke-width="3"
+      stroke-linecap="round"
+      stroke-linejoin="round"`;
 
+    Object.entries(el.a)
+      .forEach(([k,v])=>{
 
-    Object.entries(el.a).forEach(
-      ([k,v])=>{
         s+=` ${k}="${v}"`;
-      }
-    );
 
+      });
 
     s+='/>';
   });
-
 
   s+='</svg>';
 
@@ -1717,13 +1765,12 @@ function buildMiniSVG(d){
 }
 
 
-// ════════════════════════════════════════
-// PALETA
-// ════════════════════════════════════════
+/* =====================================================
+   PALETA
+===================================================== */
 
 const palEl=
   document.getElementById('palette');
-
 
 COLORS.forEach((c,i)=>{
 
@@ -1736,14 +1783,10 @@ COLORS.forEach((c,i)=>{
 
   btn.style.background=c;
 
-
   if(c==='#FFFFFF'){
-
     btn.style.border=
       '3px solid #ddd';
-
   }
-
 
   btn.addEventListener(
     'click',
@@ -1761,29 +1804,26 @@ COLORS.forEach((c,i)=>{
 
       btn.classList.add('sel');
 
+      const borrar=
+        document.getElementById(
+          'btn-borra'
+        );
 
-      document
-        .getElementById('btn-borra')
-        .style.opacity='1';
+      borrar.style.opacity='1';
 
-
-      document
-        .getElementById('btn-borra')
+      borrar
         .querySelector('span')
         .textContent='🩹';
-
     }
   );
 
-
   palEl.appendChild(btn);
-
 });
 
 
-// ════════════════════════════════════════
-// BORRADOR
-// ════════════════════════════════════════
+/* =====================================================
+   BORRADOR
+===================================================== */
 
 document
   .getElementById('btn-borra')
@@ -1798,19 +1838,17 @@ document
           'btn-borra'
         );
 
-
       btn.style.opacity=
-        isEraser?
-        '.5':
+        isEraser ?
+        '.5' :
         '1';
 
-
-      btn.querySelector('span')
+      btn
+        .querySelector('span')
         .textContent=
-        isEraser?
-        '✏️':
-        '🩹';
-
+          isEraser ?
+          '✏️' :
+          '🩹';
 
       if(isEraser){
 
@@ -1819,16 +1857,14 @@ document
           .forEach(b=>
             b.classList.remove('sel')
           );
-
       }
-
     }
   );
 
 
-// ════════════════════════════════════════
-// LIMPIAR
-// ════════════════════════════════════════
+/* =====================================================
+   LIMPIAR
+===================================================== */
 
 document
   .getElementById('btn-limpia')
@@ -1841,27 +1877,22 @@ document
           '¿Borrar todos los colores?'
         )
       ){
-
         return;
-
       }
-
 
       colors[currentIdx]=
         DRAWINGS[currentIdx]
-          .zones
-          .map(()=>'white');
-
+        .zones
+        .map(()=>'white');
 
       redraw();
-
     }
   );
 
 
-// ════════════════════════════════════════
-// GUARDAR
-// ════════════════════════════════════════
+/* =====================================================
+   GUARDAR
+===================================================== */
 
 document
   .getElementById('btn-guarda')
@@ -1887,19 +1918,20 @@ document
       toast(
         '¡Guardado! 🎉'
       );
-
     }
   );
 
 
-// ════════════════════════════════════════
-// TOAST
-// ════════════════════════════════════════
+/* =====================================================
+   TOAST
+===================================================== */
 
 function toast(msg){
 
   const t=
-    document.getElementById('toast');
+    document.getElementById(
+      'toast'
+    );
 
   t.textContent=msg;
 
@@ -1909,54 +1941,19 @@ function toast(msg){
     ()=>t.classList.remove('show'),
     2200
   );
-
 }
 
 
-// ════════════════════════════════════════
-// INICIO
-// ════════════════════════════════════════
-
-window.addEventListener(
-  'DOMContentLoaded',
-  ()=>{
-
-    document
-      .getElementById('drawing-label')
-      .textContent=
-      DRAWINGS[0].name;
-
-    resizeCanvas();
-
-  }
-);
-
-
-window.addEventListener(
-  'resize',
-  resizeCanvas
-);
-
-</script><script>
-
-// ════════════════════════════════════════
-// INSTALACIÓN DE LA APP
-// ════════════════════════════════════════
+/* =====================================================
+   INSTALACIÓN PWA
+===================================================== */
 
 let deferredPrompt=null;
-
-
-/*
- IMPORTANTE:
- El ID ahora coincide exactamente
- con el botón HTML: InstalarApp
-*/
 
 const instalarBtn=
   document.getElementById(
     'InstalarApp'
   );
-
 
 window.addEventListener(
   'beforeinstallprompt',
@@ -1966,54 +1963,41 @@ window.addEventListener(
 
     deferredPrompt=e;
 
-
-    if(instalarBtn){
-
-      instalarBtn.style.display=
-        'block';
-
-    }
-
+    instalarBtn.style.display=
+      'block';
   }
 );
 
 
-if(instalarBtn){
+instalarBtn.addEventListener(
+  'click',
+  async()=>{
 
-  instalarBtn.addEventListener(
-    'click',
-    async()=>{
-
-      if(!deferredPrompt)return;
-
-
-      deferredPrompt.prompt();
-
-
-      const resultado=
-        await deferredPrompt.userChoice;
-
-
-      console.log(
-        'Instalación:',
-        resultado.outcome
-      );
-
-
-      deferredPrompt=null;
-
-      instalarBtn.style.display=
-        'none';
-
+    if(!deferredPrompt){
+      return;
     }
-  );
 
-}
+    deferredPrompt.prompt();
+
+    const resultado=
+      await deferredPrompt.userChoice;
+
+    console.log(
+      'Instalación:',
+      resultado.outcome
+    );
+
+    deferredPrompt=null;
+
+    instalarBtn.style.display=
+      'none';
+  }
+);
 
 
-// ════════════════════════════════════════
-// SERVICE WORKER
-// ════════════════════════════════════════
+/* =====================================================
+   SERVICE WORKER
+===================================================== */
 
 if(
   'serviceWorker' in navigator
@@ -2027,28 +2011,45 @@ if(
         .register(
           './service-worker.js'
         )
-
         .then(
-          ()=>{
-            console.log(
-              'Service Worker registrado correctamente'
-            );
-          }
+          ()=>console.log(
+            'Service Worker registrado correctamente'
+          )
         )
-
         .catch(
-          error=>{
-            console.error(
-              'Error del Service Worker:',
-              error
-            );
-          }
+          error=>console.error(
+            'Error del Service Worker:',
+            error
+          )
         );
-
     }
   );
-
 }
+
+
+/* =====================================================
+   INICIO
+===================================================== */
+
+window.addEventListener(
+  'DOMContentLoaded',
+  ()=>{
+
+    document
+      .getElementById(
+        'drawing-label'
+      )
+      .textContent=
+        DRAWINGS[0].name;
+
+    resizeCanvas();
+  }
+);
+
+window.addEventListener(
+  'resize',
+  resizeCanvas
+);
 
 </script></body>
 </html>
