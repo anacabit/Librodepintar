@@ -1,1 +1,607 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>Ficha de Dibujos para Colorear</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    background: #f2f2f2;
+    font-family: Arial, sans-serif;
+}
+
+.ficha {
+    width: 100%;
+    max-width: 1500px;
+    margin: auto;
+    background: white;
+    padding: 10px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+}
+
+.celda {
+    position: relative;
+    aspect-ratio: 1.25 / 1;
+    border: 1px solid #bbb;
+    border-radius: 14px;
+    background: white;
+    overflow: hidden;
+}
+
+.numero {
+    position: absolute;
+    left: 18px;
+    top: 12px;
+    font-size: 28px;
+    font-weight: bold;
+    z-index: 10;
+}
+
+svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.linea {
+    fill: white;
+    stroke: black;
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.linea-fina {
+    fill: none;
+    stroke: black;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+@media print {
+
+    body {
+        background: white;
+        padding: 0;
+    }
+
+    .ficha {
+        max-width: none;
+        padding: 5mm;
+    }
+
+    .celda {
+        break-inside: avoid;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="ficha">
+
+<div class="grid">
+
+<!-- 1 FLOR -->
+<div class="celda">
+<div class="numero">1</div>
+<svg viewBox="0 0 300 240">
+
+<g class="linea">
+    <ellipse cx="150" cy="65" rx="25" ry="42"/>
+    <ellipse cx="195" cy="82" rx="42" ry="25"
+             transform="rotate(45 195 82)"/>
+    <ellipse cx="210" cy="125" rx="42" ry="25"
+             transform="rotate(90 210 125)"/>
+    <ellipse cx="195" cy="168" rx="42" ry="25"
+             transform="rotate(135 195 168)"/>
+    <ellipse cx="150" cy="182" rx="25" ry="42"/>
+    <ellipse cx="105" cy="168" rx="42" ry="25"
+             transform="rotate(45 105 168)"/>
+    <ellipse cx="90" cy="125" rx="42" ry="25"
+             transform="rotate(90 90 125)"/>
+    <ellipse cx="105" cy="82" rx="42" ry="25"
+             transform="rotate(135 105 82)"/>
+
+    <circle cx="150" cy="125" r="25"/>
+</g>
+
+<path class="linea-fina" d="M150 150 V225"/>
+<path class="linea" d="M150 190 C120 165 90 170 65 190 C100 205 125 205 150 190Z"/>
+<path class="linea" d="M150 205 C180 180 210 180 235 195 C205 210 180 215 150 205Z"/>
+
+</svg>
+</div>
+
+
+<!-- 2 ESTRELLA -->
+<div class="celda">
+<div class="numero">2</div>
+<svg viewBox="0 0 300 240">
+
+<polygon class="linea"
+points="150,35 175,95 240,100 190,140
+220,205 150,170 80,205 110,140
+60,100 125,95"/>
+
+</svg>
+</div>
+
+
+<!-- 3 CORAZON -->
+<div class="celda">
+<div class="numero">3</div>
+<svg viewBox="0 0 300 240">
+
+<path class="linea"
+d="M150 205
+C135 190 65 145 65 90
+C65 50 115 40 150 80
+C185 40 235 50 235 90
+C235 145 165 190 150 205Z"/>
+
+</svg>
+</div>
+
+
+<!-- 4 LUNA -->
+<div class="celda">
+<div class="numero">4</div>
+<svg viewBox="0 0 300 240">
+
+<path class="linea"
+d="M205 45
+C145 55 105 105 115 155
+C125 205 175 220 220 190
+C175 195 145 160 145 120
+C145 85 170 60 205 45Z"/>
+
+</svg>
+</div>
+
+
+<!-- 5 OSO -->
+<div class="celda">
+<div class="numero">5</div>
+<svg viewBox="0 0 300 240">
+
+<circle class="linea" cx="105" cy="65" r="28"/>
+<circle class="linea" cx="195" cy="65" r="28"/>
+
+<circle class="linea" cx="150" cy="110" r="65"/>
+
+<ellipse class="linea" cx="105" cy="180" rx="35" ry="48"/>
+<ellipse class="linea" cx="195" cy="180" rx="35" ry="48"/>
+
+<circle cx="125" cy="100" r="6"/>
+<circle cx="175" cy="100" r="6"/>
+
+<ellipse class="linea" cx="150" cy="125" rx="20" ry="15"/>
+
+<path class="linea-fina"
+d="M150 125 V140
+M135 145 Q150 160 165 145"/>
+
+</svg>
+</div>
+
+
+<!-- 6 CASA -->
+<div class="celda">
+<div class="numero">6</div>
+<svg viewBox="0 0 300 240">
+
+<path class="linea" d="M55 115 L150 35 L245 115"/>
+<rect class="linea" x="75" y="110" width="150" height="105"/>
+<rect class="linea" x="135" y="155" width="35" height="60"/>
+
+<rect class="linea" x="95" y="135" width="35" height="35"/>
+<line class="linea-fina" x1="112" y1="135" x2="112" y2="170"/>
+<line class="linea-fina" x1="95" y1="152" x2="130" y2="152"/>
+
+<rect class="linea" x="190" y="70" width="15" height="35"/>
+
+</svg>
+</div>
+
+
+<!-- 7 CARRO -->
+<div class="celda">
+<div class="numero">7</div>
+<svg viewBox="0 0 300 240">
+
+<path class="linea"
+d="M55 160
+L75 115
+L110 85
+L190 85
+L225 115
+L245 160
+Z"/>
+
+<rect class="linea" x="80" y="120" width="145" height="40" rx="10"/>
+
+<circle class="linea" cx="100" cy="175" r="23"/>
+<circle class="linea" cx="200" cy="175" r="23"/>
+
+<line class="linea-fina" x1="120" y1="95" x2="125" y2="120"/>
+<line class="linea-fina" x1="180" y1="95" x2="175" y2="120"/>
+
+</svg>
+</div>
+
+
+<!-- 8 PELOTA -->
+<div class="celda">
+<div class="numero">8</div>
+<svg viewBox="0 0 300 240">
+
+<circle class="linea" cx="150" cy="125" r="75"/>
+
+<path class="linea-fina"
+d="M150 50 C130 80 130 170 150 200"/>
+<path class="linea-fina"
+d="M150 50 C180 70 205 90 225 125"/>
+<path class="linea-fina"
+d="M150 200 C180 180 205 160 225 125"/>
+
+<circle class="linea" cx="150" cy="65" r="18"/>
+
+</svg>
+</div>
+
+
+<!-- 9 TAZA -->
+<div class="celda">
+<div class="numero">9</div>
+<svg viewBox="0 0 300 240">
+
+<ellipse class="linea" cx="145" cy="85" rx="65" ry="18"/>
+<path class="linea"
+d="M80 85 V160
+C80 195 210 195 210 160
+V85"/>
+
+<path class="linea"
+d="M210 105
+C255 95 255 160 210 155"/>
+
+<path class="linea-fina"
+d="M100 180 Q145 195 190 180"/>
+
+</svg>
+</div>
+
+
+<!-- 10 BARCO -->
+<div class="celda">
+<div class="numero">10</div>
+<svg viewBox="0 0 300 240">
+
+<line class="linea-fina" x1="150" y1="35" x2="150" y2="175"/>
+
+<path class="linea"
+d="M150 50 L150 125 L215 125 Z"/>
+
+<path class="linea"
+d="M145 70 L145 125 L85 125 Z"/>
+
+<path class="linea"
+d="M55 150
+L245 150
+C225 190 80 190 55 150Z"/>
+
+</svg>
+</div>
+
+
+<!-- 11 ARBOL -->
+<div class="celda">
+<div class="numero">11</div>
+<svg viewBox="0 0 300 240">
+
+<path class="linea"
+d="M150 50
+C110 35 80 65 85 95
+C50 100 55 145 90 150
+C75 180 115 195 135 170
+C145 195 175 195 180 170
+C215 195 245 160 215 140
+C245 110 220 75 190 85
+C185 55 165 45 150 50Z"/>
+
+<path class="linea"
+d="M135 165
+C135 145 125 130 110 115
+M165 165
+C165 145 175 130 190 115
+M150 135 V220"/>
+
+</svg>
+</div>
+
+
+<!-- 12 MANZANA -->
+<div class="celda">
+<div class="numero">12</div>
+<svg viewBox="0 0 300 240">
+
+<path class="linea"
+d="M150 80
+C105 55 70 90 75 140
+C80 195 120 210 150 190
+C180 210 220 195 225 140
+C230 90 195 55 150 80Z"/>
+
+<path class="linea-fina" d="M150 80 C150 55 145 40 135 30"/>
+
+<path class="linea"
+d="M150 60
+C170 30 205 30 215 45
+C195 70 170 70 150 60Z"/>
+
+</svg>
+</div>
+
+
+<!-- 13 SANDIA -->
+<div class="celda">
+<div class="numero">13</div>
+<svg viewBox="0 0 300 240">
+
+<path class="linea"
+d="M65 85
+C65 175 235 175 235 85
+Z"/>
+
+<path class="linea-fina"
+d="M75 100
+C90 165 210 165 225 100"/>
+
+<ellipse class="linea" cx="110" cy="125" rx="5" ry="10"/>
+<ellipse class="linea" cx="145" cy="145" rx="5" ry="10"/>
+<ellipse class="linea" cx="180" cy="125" rx="5" ry="10"/>
+
+</svg>
+</div>
+
+
+<!-- 14 ESTRELLA -->
+<div class="celda">
+<div class="numero">14</div>
+<svg viewBox="0 0 300 240">
+
+<polygon class="linea"
+points="150,35 175,95 240,100 190,140
+220,205 150,170 80,205 110,140
+60,100 125,95"/>
+
+</svg>
+</div>
+
+
+<!-- 15 MARIPOSA CORREGIDA -->
+<div class="celda">
+<div class="numero">15</div>
+
+<svg viewBox="0 0 300 240">
+
+<!-- ALAS SUPERIORES: VAN ARRIBA Y DETRAS -->
+<g class="linea">
+
+    <path d="
+    M145 105
+    C125 55 75 45 55 70
+    C35 95 55 125 110 125
+    C125 125 138 115 145 105Z"/>
+
+    <path d="
+    M155 105
+    C175 55 225 45 245 70
+    C265 95 245 125 190 125
+    C175 125 162 115 155 105Z"/>
+
+</g>
+
+<!-- ALAS INFERIORES: ABAJO DE LAS SUPERIORES -->
+<g class="linea">
+
+    <path d="
+    M145 125
+    C115 115 70 130 65 165
+    C60 195 105 205 145 145
+    Z"/>
+
+    <path d="
+    M155 125
+    C185 115 230 130 235 165
+    C240 195 195 205 155 145
+    Z"/>
+
+</g>
+
+<!-- CUERPO POR ENCIMA DE TODAS LAS ALAS -->
+<g class="linea">
+
+    <ellipse cx="150" cy="135" rx="10" ry="45"/>
+    <circle cx="150" cy="90" r="12"/>
+
+</g>
+
+<!-- ANTENAS -->
+<path class="linea-fina" d="M145 82 L125 55"/>
+<path class="linea-fina" d="M155 82 L175 55"/>
+
+<circle class="linea" cx="124" cy="53" r="5"/>
+<circle class="linea" cx="176" cy="53" r="5"/>
+
+<!-- DECORACION ALAS -->
+<circle class="linea" cx="95" cy="90" r="13"/>
+<circle class="linea" cx="205" cy="90" r="13"/>
+
+<circle class="linea" cx="100" cy="165" r="10"/>
+<circle class="linea" cx="200" cy="165" r="10"/>
+
+</svg>
+</div>
+
+
+<!-- 16 MARIPOSA CORREGIDA -->
+<div class="celda">
+<div class="numero">16</div>
+
+<svg viewBox="0 0 300 240">
+
+<!-- ALAS SUPERIORES -->
+<path class="linea"
+d="M145 110
+C120 55 70 50 55 80
+C45 105 65 130 115 130
+C130 130 140 120 145 110Z"/>
+
+<path class="linea"
+d="M155 110
+C180 55 230 50 245 80
+C255 105 235 130 185 130
+C170 130 160 120 155 110Z"/>
+
+<!-- ALAS INFERIORES -->
+<path class="linea"
+d="M145 130
+C115 120 75 140 70 170
+C65 195 105 205 145 150Z"/>
+
+<path class="linea"
+d="M155 130
+C185 120 225 140 230 170
+C235 195 195 205 155 150Z"/>
+
+<!-- CUERPO -->
+<ellipse class="linea" cx="150" cy="140" rx="10" ry="48"/>
+<circle class="linea" cx="150" cy="92" r="12"/>
+
+<!-- ANTENAS -->
+<path class="linea-fina" d="M145 82 L125 55"/>
+<path class="linea-fina" d="M155 82 L175 55"/>
+
+<circle class="linea" cx="124" cy="53" r="5"/>
+<circle class="linea" cx="176" cy="53" r="5"/>
+
+<!-- DECORACION -->
+<circle class="linea" cx="95" cy="95" r="12"/>
+<circle class="linea" cx="205" cy="95" r="12"/>
+<circle class="linea" cx="100" cy="165" r="10"/>
+<circle class="linea" cx="200" cy="165" r="10"/>
+
+</svg>
+</div>
+
+
+<!-- 17 PEZ -->
+<div class="celda">
+<div class="numero">17</div>
+<svg viewBox="0 0 300 240">
+
+<ellipse class="linea" cx="140" cy="125" rx="75" ry="50"/>
+
+<path class="linea"
+d="M210 125 L250 85 L250 165 Z"/>
+
+<path class="linea"
+d="M130 78 L155 45 L180 80"/>
+<path class="linea"
+d="M130 172 L155 200 L180 170"/>
+
+<circle cx="105" cy="110" r="7"/>
+
+<path class="linea-fina"
+d="M80 125 Q95 135 110 125"/>
+
+</svg>
+</div>
+
+
+<!-- 18 SOL -->
+<div class="celda">
+<div class="numero">18</div>
+<svg viewBox="0 0 300 240">
+
+<circle class="linea" cx="150" cy="120" r="50"/>
+
+<g class="linea-fina">
+<line x1="150" y1="45" x2="150" y2="20"/>
+<line x1="150" y1="195" x2="150" y2="220"/>
+<line x1="75" y1="120" x2="50" y2="120"/>
+<line x1="225" y1="120" x2="250" y2="120"/>
+
+<line x1="95" y1="65" x2="75" y2="45"/>
+<line x1="205" y1="65" x2="225" y2="45"/>
+<line x1="95" y1="175" x2="75" y2="195"/>
+<line x1="205" y1="175" x2="225" y2="195"/>
+</g>
+
+</svg>
+</div>
+
+
+<!-- 19 NUBE -->
+<div class="celda">
+<div class="numero">19</div>
+<svg viewBox="0 0 300 240">
+
+<path class="linea"
+d="M65 165
+C45 130 75 105 105 110
+C105 70 160 55 180 95
+C215 80 245 110 230 140
+C260 155 235 190 205 185
+L95 185
+C75 185 65 175 65 165Z"/>
+
+</svg>
+</div>
+
+
+<!-- 20 GLOBO -->
+<div class="celda">
+<div class="numero">20</div>
+<svg viewBox="0 0 300 240">
+
+<path class="linea"
+d="M150 35
+C90 35 65 85 75 125
+C85 165 115 175 125 185
+L175 185
+C185 175 215 165 225 125
+C235 85 210 35 150 35Z"/>
+
+<path class="linea-fina" d="M125 40 C115 90 120 145 135 180"/>
+<path class="linea-fina" d="M150 35 V185"/>
+<path class="linea-fina" d="M175 40 C185 90 180 145 165 180"/>
+
+<rect class="linea" x="130" y="185" width="40" height="25"/>
+<path class="linea" d="M140 210 L160 210 L165 225 L135 225 Z"/>
+
+</svg>
+</div>
+
+</div>
+</div>
+
+</body>
+</html>
