@@ -1973,6 +1973,2059 @@ decos:[
 
 /* =====================================================
    37. ISLA
+===========================================
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{
+t:'path',
+a:{
+d:'M35,220 Q75,195 115,210 Q150,225 185,205 Q225,180 265,220 Q230,250 150,250 Q70,250 35,220 Z'
+}
+},
+
+{
+t:'path',
+a:{
+d:'M150,205 C125,165 120,125 150,70 C180,125 175,165 150,205 Z'
+}
+},
+
+{
+t:'ellipse',
+a:{
+cx:150,
+cy:72,
+rx:65,
+ry:18,
+transform:'rotate(-20,150,72)'
+}
+}
+
+],
+
+decos:[
+
+{t:'line',a:{x1:150,y1:105,x2:120,y2:75}},
+{t:'line',a:{x1:150,y1:125,x2:185,y2:95}}
+
+]
+
+},
+
+
+/* =====================================================
+   38. COPA
+===================================================== */
+
+{
+name:'🍷 Copa',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{
+t:'path',
+a:{
+d:'M80,65 L220,65 C215,130 195,165 165,180 L165,235 L205,235 L205,255 L95,255 L95,235 L135,235 L135,180 C105,165 85,130 80,65 Z'
+}
+},
+
+{
+t:'path',
+a:{
+d:'M84,65 L216,65 C210,115 195,140 150,145 C105,140 90,115 84,65 Z'
+}
+}
+
+],
+
+decos:[
+
+{t:'ellipse',a:{cx:150,cy:65,rx:67,ry:10}}
+
+]
+
+}
+
+];
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>🎨 Mi Libro de Colorear</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#4CAF50">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  touch-action:manipulation;
+}
+
+html,body{
+  width:100%;
+  min-height:100%;
+  background:#FFF8F0;
+}
+
+body{
+  font-family:'Segoe UI',sans-serif;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  overflow-x:hidden;
+}
+
+/* CABECERA */
+
+header{
+  width:100%;
+  background:linear-gradient(135deg,#FF6B9D,#FFB347);
+  padding:9px 10px 7px;
+  text-align:center;
+  box-shadow:0 3px 12px rgba(0,0,0,.15);
+}
+
+header h1{
+  font-size:1.3rem;
+  color:white;
+  text-shadow:2px 2px 4px rgba(0,0,0,.2);
+}
+
+header p{
+  color:rgba(255,255,255,.92);
+  font-size:.76rem;
+  margin-top:2px;
+}
+
+#instalar-app{
+  display:none;
+  margin:6px auto 0;
+  border:0;
+  background:white;
+  color:#E91E63;
+  padding:8px 16px;
+  border-radius:20px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* GALERÍA */
+
+#gallery{
+  display:flex;
+  gap:8px;
+  padding:8px 10px 4px;
+  overflow-x:auto;
+  width:100%;
+  scrollbar-width:none;
+}
+
+#gallery::-webkit-scrollbar{
+  display:none;
+}
+
+.thumb{
+  flex:0 0 56px;
+  width:56px;
+  height:56px;
+  border-radius:11px;
+  border:3px solid transparent;
+  background:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.12);
+  overflow:hidden;
+  padding:3px;
+  cursor:pointer;
+}
+
+.thumb.active{
+  border-color:#FF6B9D;
+  box-shadow:0 0 0 3px #FF6B9D40;
+}
+
+/* TÍTULO */
+
+#drawing-label{
+  font-size:.88rem;
+  font-weight:700;
+  color:#666;
+  text-align:center;
+  padding:2px 0 4px;
+}
+
+/* CANVAS */
+
+#canvas-wrap{
+  width:100%;
+  padding:0 8px;
+  display:flex;
+  justify-content:center;
+}
+
+#paint-canvas{
+  width:100%;
+  max-width:560px;
+  aspect-ratio:1/1;
+  border-radius:14px;
+  box-shadow:0 4px 20px rgba(0,0,0,.12);
+  display:block;
+  background:white;
+  cursor:crosshair;
+  touch-action:none;
+}
+
+/* PALETA */
+
+#palette-wrap{
+  width:100%;
+  max-width:560px;
+  padding:7px 10px 4px;
+}
+
+#palette-wrap h3{
+  font-size:.66rem;
+  color:#aaa;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin-bottom:6px;
+  text-align:center;
+}
+
+#palette{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:6px;
+}
+
+.cbtn{
+  width:100%;
+  aspect-ratio:1;
+  border-radius:50%;
+  border:3px solid white;
+  cursor:pointer;
+  box-shadow:0 2px 6px rgba(0,0,0,.18);
+}
+
+.cbtn.sel{
+  border-color:#333;
+  box-shadow:0 0 0 3px #3333;
+  transform:scale(1.08);
+}
+
+/* BOTONES */
+
+#actions{
+  display:flex;
+  gap:7px;
+  padding:7px 10px 13px;
+  width:100%;
+  max-width:560px;
+}
+
+.abtn{
+  flex:1;
+  padding:9px 3px;
+  border:0;
+  border-radius:13px;
+  font-size:.72rem;
+  font-weight:700;
+  cursor:pointer;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:2px;
+}
+
+.abtn span{
+  font-size:1.1rem;
+}
+
+#btn-borra{
+  background:#FFE0B2;
+  color:#E65100;
+}
+
+#btn-limpia{
+  background:#FFCDD2;
+  color:#C62828;
+}
+
+#btn-guarda{
+  background:#C8E6C9;
+  color:#2E7D32;
+}
+
+/* MENSAJE */
+
+#toast{
+  position:fixed;
+  bottom:24px;
+  left:50%;
+  transform:translateX(-50%) translateY(60px);
+  background:#333;
+  color:white;
+  padding:9px 20px;
+  border-radius:18px;
+  font-size:.85rem;
+  transition:.3s;
+  z-index:999;
+  pointer-events:none;
+}
+
+#toast.show{
+  transform:translateX(-50%) translateY(0);
+}
+
+/* PANTALLAS PEQUEÑAS */
+
+@media(max-height:700px){
+
+  header{
+    padding:6px;
+  }
+
+  header h1{
+    font-size:1.12rem;
+  }
+
+  header p{
+    font-size:.7rem;
+  }
+
+  #gallery{
+    padding-top:4px;
+  }
+
+  .thumb{
+    width:48px;
+    height:48px;
+    flex-basis:48px;
+  }
+
+  #drawing-label{
+    padding-bottom:2px;
+  }
+
+  #palette-wrap{
+    padding-top:4px;
+  }
+
+  #actions{
+    padding-bottom:7px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<h1>🎨 Mi Libro de Colorear</h1>
+
+<p>¡Toca una zona y pinta con el color!</p>
+
+<button id="instalar-app">
+📱 Instalar App
+</button>
+
+</header>
+
+<div id="gallery"></div>
+
+<div id="drawing-label">
+Cargando...
+</div>
+
+<div id="canvas-wrap">
+<canvas id="paint-canvas"></canvas>
+</div>
+
+<div id="palette-wrap">
+
+<h3>🖌️ Elige tu color</h3>
+
+<div id="palette"></div>
+
+</div>
+
+<div id="actions">
+
+<button class="abtn" id="btn-borra">
+<span>🩹</span>
+Borrador
+</button>
+
+<button class="abtn" id="btn-limpia">
+<span>🗑️</span>
+Limpiar
+</button>
+
+<button class="abtn" id="btn-guarda">
+<span>💾</span>
+Guardar
+</button>
+
+</div>
+
+<div id="toast"></div>
+
+
+<script>
+
+/* =====================================================
+   PALETA
+===================================================== */
+
+const COLORS=[
+'#FF3B30',
+'#FF9500',
+'#FFCC00',
+'#34C759',
+'#007AFF',
+'#AF52DE',
+'#FF2D55',
+'#A2845E',
+'#FF6B00',
+'#5AC8FA',
+'#FFFFFF',
+'#1C1C1E'
+];
+
+
+/* =====================================================
+   DIBUJOS
+   38 DIBUJOS
+===================================================== */
+
+const DRAWINGS=[
+
+
+/* =====================================================
+   1. FLOR
+===================================================== */
+
+{
+name:'🌸 Flor',
+vb:'0 0 300 300',
+
+zones:[
+
+{
+t:'rect',
+a:{x:0,y:0,width:300,height:300,rx:14}
+},
+
+/* TALLO */
+
+{
+t:'rect',
+a:{x:143,y:150,width:14,height:108,rx:7}
+},
+
+/* HOJA IZQUIERDA */
+
+{
+t:'ellipse',
+a:{
+cx:110,
+cy:225,
+rx:38,
+ry:18,
+transform:'rotate(-28,110,225)'
+}
+},
+
+/* HOJA DERECHA */
+
+{
+t:'ellipse',
+a:{
+cx:190,
+cy:225,
+rx:38,
+ry:18,
+transform:'rotate(28,190,225)'
+}
+},
+
+/* PÉTALO SUPERIOR */
+
+{
+t:'ellipse',
+a:{
+cx:150,
+cy:76,
+rx:27,
+ry:52,
+transform:'rotate(0,150,150)'
+}
+},
+
+/* PÉTALO SUPERIOR DERECHO */
+
+{
+t:'ellipse',
+a:{
+cx:212,
+cy:113,
+rx:27,
+ry:52,
+transform:'rotate(60,150,150)'
+}
+},
+
+/* PÉTALO INFERIOR DERECHO */
+
+{
+t:'ellipse',
+a:{
+cx:205,
+cy:185,
+rx:27,
+ry:52,
+transform:'rotate(120,150,150)'
+}
+},
+
+/* PÉTALO INFERIOR */
+
+{
+t:'ellipse',
+a:{
+cx:150,
+cy:214,
+rx:27,
+ry:52,
+transform:'rotate(180,150,150)'
+}
+},
+
+/* PÉTALO INFERIOR IZQUIERDO */
+
+{
+t:'ellipse',
+a:{
+cx:95,
+cy:185,
+rx:27,
+ry:52,
+transform:'rotate(240,150,150)'
+}
+},
+
+/* PÉTALO SUPERIOR IZQUIERDO */
+
+{
+t:'ellipse',
+a:{
+cx:88,
+cy:113,
+rx:27,
+ry:52,
+transform:'rotate(300,150,150)'
+}
+},
+
+/* CENTRO */
+
+{
+t:'circle',
+a:{cx:150,cy:150,r:39}
+}
+
+],
+
+decos:[
+
+{t:'circle',a:{cx:150,cy:135,r:4}},
+{t:'circle',a:{cx:164,cy:142,r:4}},
+{t:'circle',a:{cx:164,cy:158,r:4}},
+{t:'circle',a:{cx:150,cy:165,r:4}},
+{t:'circle',a:{cx:136,cy:158,r:4}},
+{t:'circle',a:{cx:136,cy:142,r:4}}
+
+]
+
+},
+
+
+/* =====================================================
+   2. MARIPOSA
+===================================================== */
+
+{
+name:'🦋 Mariposa',
+vb:'0 0 300 300',
+
+zones:[
+
+{
+t:'rect',
+a:{x:0,y:0,width:300,height:300,rx:14}
+},
+
+/* ALAS INFERIORES */
+
+{
+t:'ellipse',
+a:{cx:95,cy:200,rx:52,ry:45}
+},
+
+{
+t:'ellipse',
+a:{cx:205,cy:200,rx:52,ry:45}
+},
+
+/* ALAS SUPERIORES */
+
+{
+t:'ellipse',
+a:{cx:88,cy:105,rx:68,ry:62}
+},
+
+{
+t:'ellipse',
+a:{cx:212,cy:105,rx:68,ry:62}
+},
+
+/* CUERPO */
+
+{
+t:'ellipse',
+a:{cx:150,cy:160,rx:11,ry:66}
+},
+
+{
+t:'circle',
+a:{cx:150,cy:92,r:13}
+}
+
+],
+
+decos:[
+
+{t:'line',a:{x1:145,y1:82,x2:120,y2:50}},
+{t:'line',a:{x1:155,y1:82,x2:180,y2:50}}
+
+]
+
+},
+
+
+/* =====================================================
+   3. PEZ
+===================================================== */
+
+{
+name:'🐟 Pez',
+vb:'0 0 300 300',
+
+zones:[
+
+{
+t:'rect',
+a:{x:0,y:0,width:300,height:300,rx:14}
+},
+
+{
+t:'polygon',
+a:{points:'230,150 275,105 275,195'}
+},
+
+{
+t:'ellipse',
+a:{cx:135,cy:150,rx:95,ry:65}
+},
+
+{
+t:'polygon',
+a:{points:'100,88 132,62 163,88'}
+},
+
+{
+t:'ellipse',
+a:{
+cx:118,cy:176,
+rx:29,
+ry:14,
+transform:'rotate(20,118,176)'
+}
+},
+
+{
+t:'circle',
+a:{cx:70,cy:138,r:18}
+},
+
+{
+t:'circle',
+a:{cx:68,cy:138,r:9}
+}
+
+],
+
+decos:[
+
+{
+t:'circle',
+a:{cx:52,cy:95,r:10}
+},
+
+{
+t:'circle',
+a:{cx:35,cy:70,r:7}
+},
+
+{
+t:'circle',
+a:{cx:25,cy:48,r:5}
+}
+
+]
+
+},
+
+
+/* =====================================================
+   4. ARCOÍRIS
+===================================================== */
+
+{
+name:'🌈 Arcoíris',
+vb:'0 0 300 300',
+
+zones:[
+
+{
+t:'rect',
+a:{x:0,y:0,width:300,height:300,rx:14}
+},
+
+{
+t:'path',
+a:{
+d:'M22,200 A128,128 0 0,1 278,200 L258,200 A108,108 0 0,0 42,200 Z'
+}
+},
+
+{
+t:'path',
+a:{
+d:'M42,200 A108,108 0 0,1 258,200 L238,200 A88,88 0 0,0 62,200 Z'
+}
+},
+
+{
+t:'path',
+a:{
+d:'M62,200 A88,88 0 0,1 238,200 L218,200 A68,68 0 0,0 82,200 Z'
+}
+},
+
+{
+t:'path',
+a:{
+d:'M82,200 A68,68 0 0,1 218,200 L198,200 A48,48 0 0,0 102,200 Z'
+}
+},
+
+{
+t:'path',
+a:{
+d:'M102,200 A48,48 0 0,1 198,200 L178,200 A28,28 0 0,0 122,200 Z'
+}
+},
+
+/* NUBES */
+
+{
+t:'path',
+a:{
+d:'M20,220 C20,205 33,195 47,198 C52,182 66,175 80,182 C88,166 110,168 116,188 C128,187 138,196 138,208 C138,220 128,226 115,226 L42,226 C29,226 20,224 20,220 Z'
+}
+},
+
+{
+t:'path',
+a:{
+d:'M162,220 C162,205 175,195 189,198 C194,182 208,175 222,182 C230,166 252,168 258,188 C270,187 280,196 280,208 C280,220 270,226 257,226 L184,226 C171,226 162,224 162,220 Z'
+}
+},
+
+{
+t:'circle',
+a:{cx:150,cy:258,r:26}
+}
+
+],
+
+decos:[]
+
+},
+
+
+/* =====================================================
+   5. CASITA
+===================================================== */
+
+{
+name:'🏠 Casita',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{t:'rect',a:{x:54,y:154,width:192,height:118,rx:4}},
+
+{t:'polygon',a:{points:'38,158 150,60 262,158'}},
+
+{t:'rect',a:{x:194,y:78,width:28,height:56,rx:4}},
+
+{t:'rect',a:{x:122,y:194,width:56,height:78,rx:6}},
+
+{t:'rect',a:{x:70,y:178,width:50,height:46,rx:5}},
+
+{t:'rect',a:{x:180,y:178,width:50,height:46,rx:5}},
+
+{t:'rect',a:{x:18,y:268,width:264,height:26,rx:6}},
+
+{t:'circle',a:{cx:164,cy:238,r:5}}
+
+],
+
+decos:[
+
+{t:'line',a:{x1:95,y1:178,x2:95,y2:224}},
+{t:'line',a:{x1:70,y1:201,x2:120,y2:201}},
+{t:'line',a:{x1:205,y1:178,x2:205,y2:224}},
+{t:'line',a:{x1:180,y1:201,x2:230,y2:201}}
+
+]
+
+},
+
+
+/* =====================================================
+   6. ESTRELLA
+===================================================== */
+
+{
+name:'⭐ Estrella',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{
+t:'polygon',
+a:{
+points:'150,28 179,108 265,108 198,160 222,242 150,194 78,242 102,160 35,108 121,108'
+}
+}
+
+],
+
+decos:[]
+
+},
+
+
+/* =====================================================
+   7. MANZANA
+===================================================== */
+
+{
+name:'🍎 Manzana',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{
+t:'path',
+a:{
+d:'M150,90 C120,55 65,70 55,125 C45,185 88,245 150,260 C212,245 255,185 245,125 C235,70 180,55 150,90 Z'
+}
+},
+
+{t:'rect',a:{x:145,y:45,width:12,height:55,rx:5}},
+
+{
+t:'ellipse',
+a:{
+cx:180,
+cy:58,
+rx:32,
+ry:15,
+transform:'rotate(-20,180,58)'
+}
+}
+
+],
+
+decos:[]
+
+},
+
+
+/* =====================================================
+   8. SOL
+===================================================== */
+
+{
+name:'☀️ Sol',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{t:'circle',a:{cx:150,cy:150,r:70}},
+
+{t:'polygon',a:{points:'150,15 162,62 138,62'}},
+{t:'polygon',a:{points:'285,150 238,162 238,138'}},
+{t:'polygon',a:{points:'150,285 138,238 162,238'}},
+{t:'polygon',a:{points:'15,150 62,138 62,162'}},
+{t:'polygon',a:{points:'245,55 210,90 195,75'}},
+{t:'polygon',a:{points:'245,245 195,225 210,210'}},
+{t:'polygon',a:{points:'55,245 90,210 105,225'}},
+{t:'polygon',a:{points:'55,55 105,75 90,90'}}
+
+],
+
+decos:[
+
+{t:'circle',a:{cx:128,cy:140,r:5}},
+{t:'circle',a:{cx:172,cy:140,r:5}},
+{t:'path',a:{d:'M125,170 Q150,190 175,170'}}
+
+]
+
+},
+
+
+/* =====================================================
+   9. CORAZÓN
+===================================================== */
+
+{
+name:'❤️ Corazón',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{
+t:'path',
+a:{
+d:'M150,250 C130,225 45,175 45,105 C45,65 75,45 108,45 C130,45 145,58 150,78 C155,58 170,45 192,45 C225,45 255,65 255,105 C255,175 170,225 150,250 Z'
+}
+}
+
+],
+
+decos:[]
+
+},
+
+
+/* =====================================================
+   10. HELADO
+===================================================== */
+
+{
+name:'🍦 Helado',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{t:'polygon',a:{points:'105,135 195,135 150,270'}},
+
+{t:'ellipse',a:{cx:150,cy:115,rx:58,ry:52}},
+
+{t:'ellipse',a:{cx:110,cy:92,rx:36,ry:32}},
+
+{t:'ellipse',a:{cx:150,cy:72,rx:22,ry:20}}
+
+],
+
+decos:[]
+
+},
+
+
+/* =====================================================
+   11. GLOBO
+===================================================== */
+
+{
+name:'🎈 Globo',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{t:'ellipse',a:{cx:150,cy:120,rx:75,ry:100}},
+
+{t:'polygon',a:{points:'140,215 160,215 150,235'}},
+
+{
+t:'path',
+a:{d:'M150,235 Q130,255 150,280 Q170,255 150,235 Z'}
+}
+
+],
+
+decos:[
+
+{t:'line',a:{x1:150,y1:235,x2:150,y2:280}}
+
+]
+
+},
+
+
+/* =====================================================
+   12. TREN
+===================================================== */
+
+{
+name:'🚂 Tren',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{t:'rect',a:{x:45,y:125,width:210,height:100,rx:12}},
+
+{t:'rect',a:{x:70,y:75,width:80,height:55,rx:8}},
+
+{t:'rect',a:{x:165,y:95,width:65,height:35,rx:6}},
+
+{t:'circle',a:{cx:90,cy:230,r:25}},
+
+{t:'circle',a:{cx:210,cy:230,r:25}},
+
+{t:'rect',a:{x:150,y:45,width:25,height:35,rx:5}}
+
+],
+
+decos:[
+
+{t:'line',a:{x1:60,y1:180,x2:240,y2:180}},
+
+{t:'circle',a:{cx:100,cy:150,r:8}},
+{t:'circle',a:{cx:130,cy:150,r:8}},
+{t:'circle',a:{cx:160,cy:150,r:8}}
+
+]
+
+},
+
+
+/* =====================================================
+   13. CARACOL
+===================================================== */
+
+{
+name:'🐌 Caracol',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{
+t:'path',
+a:{
+d:'M45,205 C55,175 80,165 108,168 C115,115 155,88 194,105 C222,117 232,142 226,165 C252,165 268,181 272,205 C248,220 218,225 185,222 L80,222 C62,220 50,215 45,205 Z'
+}
+},
+
+{t:'circle',a:{cx:145,cy:155,r:65}}
+
+],
+
+decos:[
+
+{
+t:'path',
+a:{
+d:'M145,155 C112,155 105,115 145,112 C178,110 188,143 170,163 C158,176 138,174 128,161'
+}
+},
+
+{t:'line',a:{x1:220,y1:160,x2:242,y2:120}},
+{t:'line',a:{x1:242,y1:120,x2:250,y2:108}},
+{t:'line',a:{x1:230,y1:165,x2:255,y2:140}},
+{t:'line',a:{x1:255,y1:140,x2:265,y2:132}}
+
+]
+
+},
+
+
+/* =====================================================
+   14. MARIPOSA GRANDE
+===================================================== */
+
+{
+name:'🦋 Mariposa Grande',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{t:'ellipse',a:{cx:95,cy:205,rx:55,ry:45}},
+{t:'ellipse',a:{cx:205,cy:205,rx:55,ry:45}},
+
+{t:'ellipse',a:{cx:85,cy:105,rx:65,ry:70}},
+{t:'ellipse',a:{cx:215,cy:105,rx:65,ry:70}},
+
+{t:'ellipse',a:{cx:150,cy:155,rx:13,ry:70}},
+
+{t:'circle',a:{cx:150,cy:82,r:15}}
+
+],
+
+decos:[
+
+{t:'line',a:{x1:145,y1:70,x2:115,y2:35}},
+{t:'line',a:{x1:155,y1:70,x2:185,y2:35}}
+
+]
+
+},
+
+
+/* =====================================================
+   15. NUBE
+===================================================== */
+
+{
+name:'☁️ Nube',
+vb:'0 0 300 300',
+
+zones:[
+
+{
+t:'rect',
+a:{x:0,y:0,width:300,height:300,rx:14}
+},
+
+{
+t:'path',
+a:{
+d:'M42,210 C42,188 60,172 82,174 C88,147 111,130 138,138 C151,113 184,108 204,127 C216,114 238,116 250,132 C258,143 259,155 256,165 C277,166 290,181 290,199 C290,219 274,230 253,230 L75,230 C55,230 42,224 42,210 Z'
+}
+}
+
+],
+
+decos:[]
+
+},
+
+
+/* =====================================================
+   16. COHETE
+===================================================== */
+
+{
+name:'🚀 Cohete',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{
+t:'path',
+a:{
+d:'M150,35 C105,70 95,145 115,205 L185,205 C205,145 195,70 150,35 Z'
+}
+},
+
+{t:'circle',a:{cx:150,cy:105,r:22}},
+
+{t:'polygon',a:{points:'115,170 70,215 115,205'}},
+
+{t:'polygon',a:{points:'185,170 230,215 185,205'}},
+
+{
+t:'path',
+a:{d:'M125,205 Q150,250 175,205 Z'}
+}
+
+],
+
+decos:[
+
+{t:'circle',a:{cx:150,cy:105,r:9}},
+{t:'line',a:{x1:135,y1:220,x2:125,y2:255}},
+{t:'line',a:{x1:165,y1:220,x2:175,y2:255}}
+
+]
+
+},
+
+
+/* =====================================================
+   17. FRESA
+===================================================== */
+
+{
+name:'🍓 Fresa',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{
+t:'path',
+a:{
+d:'M150,255 C105,235 65,195 62,145 C60,105 92,82 150,92 C208,82 240,105 238,145 C235,195 195,235 150,255 Z'
+}
+},
+
+{
+t:'path',
+a:{
+d:'M150,100 C135,75 105,70 88,88 C112,92 130,102 150,112 C170,102 188,92 212,88 C195,70 165,75 150,100 Z'
+}
+}
+
+],
+
+decos:[
+
+{t:'ellipse',a:{cx:105,cy:135,rx:4,ry:8,transform:'rotate(-20,105,135)'}},
+{t:'ellipse',a:{cx:145,cy:130,rx:4,ry:8,transform:'rotate(-5,145,130)'}},
+{t:'ellipse',a:{cx:185,cy:135,rx:4,ry:8,transform:'rotate(20,185,135)'}},
+{t:'ellipse',a:{cx:120,cy:175,rx:4,ry:8,transform:'rotate(-15,120,175)'}},
+{t:'ellipse',a:{cx:165,cy:175,rx:4,ry:8,transform:'rotate(15,165,175)'}},
+{t:'ellipse',a:{cx:145,cy:210,rx:4,ry:8}}
+
+]
+
+},
+
+
+/* =====================================================
+   18. CEREZA
+===================================================== */
+
+{
+name:'🍒 Cereza',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{t:'circle',a:{cx:110,cy:190,r:45}},
+{t:'circle',a:{cx:190,cy:190,r:45}},
+
+{
+t:'path',
+a:{d:'M110,150 Q105,85 150,55'}
+},
+
+{
+t:'path',
+a:{d:'M190,150 Q195,85 150,55'}
+},
+
+{
+t:'ellipse',
+a:{
+cx:175,
+cy:60,
+rx:30,
+ry:13,
+transform:'rotate(-25,175,60)'
+}
+}
+
+],
+
+decos:[]
+
+},
+
+
+/* =====================================================
+   19. PÁJARO
+===================================================== */
+
+{
+name:'🐦 Pájaro',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{
+t:'ellipse',
+a:{cx:145,cy:150,rx:72,ry:55}
+},
+
+{
+t:'circle',
+a:{cx:205,cy:120,r:42}
+},
+
+{
+t:'polygon',
+a:{points:'242,120 278,137 242,150'}
+},
+
+{
+t:'ellipse',
+a:{
+cx:130,
+cy:160,
+rx:40,
+ry:25,
+transform:'rotate(-20,130,160)'
+}
+},
+
+{
+t:'ellipse',
+a:{
+cx:215,
+cy:205,
+rx:35,
+ry:12
+}
+}
+
+],
+
+decos:[
+
+{t:'circle',a:{cx:218,cy:112,r:7}},
+{t:'circle',a:{cx:220,cy:112,r:3}}
+
+]
+
+},
+
+
+/* =====================================================
+   20. LUNA
+===================================================== */
+
+{
+name:'🌙 Luna',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{
+t:'path',
+a:{
+d:'M190,45 C125,62 90,125 110,185 C130,245 202,265 248,222 C202,230 158,198 155,145 C152,95 168,65 190,45 Z'
+}
+}
+
+],
+
+decos:[
+
+{t:'circle',a:{cx:82,cy:85,r:5}},
+{t:'circle',a:{cx:65,cy:135,r:4}},
+{t:'circle',a:{cx:225,cy:80,r:4}},
+{t:'circle',a:{cx:240,cy:170,r:5}}
+
+]
+
+},
+
+
+/* =====================================================
+   21. CAMISA
+===================================================== */
+
+{
+name:'👕 Camisa',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{
+t:'polygon',
+a:{
+points:'105,55 150,80 195,55 245,105 215,140 195,120 195,255 105,255 105,120 85,140 55,105'
+}
+},
+
+{
+t:'polygon',
+a:{points:'125,65 150,80 175,65 168,105 150,120 132,105'}
+}
+
+],
+
+decos:[]
+
+},
+
+
+/* =====================================================
+   22. VELERO
+===================================================== */
+
+{
+name:'⛵ Velero',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{
+t:'polygon',
+a:{points:'150,45 150,195 75,195'}
+},
+
+{
+t:'polygon',
+a:{points:'158,80 158,195 225,195'}
+},
+
+{
+t:'path',
+a:{
+d:'M55,195 Q150,225 245,195 L225,225 L75,225 Z'
+}
+},
+
+{
+t:'rect',
+a:{x:146,y:45,width:8,height:155,rx:3}
+}
+
+],
+
+decos:[]
+
+},
+
+
+/* =====================================================
+   23. SILLA
+===================================================== */
+
+{
+name:'🪑 Silla',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{
+t:'rect',
+a:{x:85,y:60,width:130,height:85,rx:10}
+},
+
+{
+t:'rect',
+a:{x:75,y:135,width:150,height:38,rx:10}
+},
+
+{
+t:'rect',a:{x:85,y:168,width:25,height:90,rx:5}},
+{
+t:'rect',a:{x:190,y:168,width:25,height:90,rx:5}}
+
+],
+
+decos:[]
+
+},
+
+
+/* =====================================================
+   24. MESA
+===================================================== */
+
+{
+name:'🪵 Mesa',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{
+t:'rect',
+a:{x:45,y:95,width:210,height:45,rx:8}
+},
+
+{
+t:'rect',a:{x:65,y:140,width:28,height:120,rx:5}
+},
+
+{
+t:'rect',a:{x:207,y:140,width:28,height:120,rx:5}
+}
+
+],
+
+decos:[]
+
+},
+
+
+/* =====================================================
+   25. VASO
+===================================================== */
+
+{
+name:'🥛 Vaso',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{
+t:'path',
+a:{
+d:'M90,75 L210,75 L195,245 Q150,265 105,245 Z'
+}
+}
+
+],
+
+decos:[
+
+{t:'ellipse',a:{cx:150,cy:75,rx:60,ry:12}}
+
+]
+
+},
+
+
+/* =====================================================
+   26. TAZA
+===================================================== */
+
+{
+name:'☕ Taza',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{
+t:'path',
+a:{
+d:'M70,105 L215,105 L205,220 Q200,245 150,245 Q100,245 95,220 Z'
+}
+},
+
+{
+t:'ellipse',
+a:{cx:150,cy:105,rx:73,ry:18}
+},
+
+{
+t:'ellipse',
+a:{cx:220,cy:165,rx:38,ry:45}
+}
+
+],
+
+decos:[]
+
+},
+
+
+/* =====================================================
+   27. GATO
+===================================================== */
+
+{
+name:'🐱 Gato',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{
+t:'circle',
+a:{cx:150,cy:150,r:75}
+},
+
+{
+t:'polygon',a:{points:'88,105 90,45 130,82'}
+},
+
+{
+t:'polygon',a:{points:'170,82 210,45 212,105'}
+},
+
+{
+t:'ellipse',a:{cx:125,cy:145,rx:10,ry:15}},
+{
+t:'ellipse',a:{cx:175,cy:145,rx:10,ry:15}},
+
+{
+t:'triangle',
+a:{}
+}
+
+],
+
+decos:[
+
+{t:'circle',a:{cx:125,cy:145,r:4}},
+{t:'circle',a:{cx:175,cy:145,r:4}},
+
+{t:'path',a:{d:'M140,170 Q150,180 160,170'}},
+
+{t:'line',a:{x1:95,y1:175,x2:55,y2:165}},
+{t:'line',a:{x1:95,y1:185,x2:55,y2:185}},
+{t:'line',a:{x1:205,y1:175,x2:245,y2:165}},
+{t:'line',a:{x1:205,y1:185,x2:245,y2:185}}
+
+]
+
+},
+
+
+/* =====================================================
+   28. PERRO
+===================================================== */
+
+{
+name:'🐶 Perro',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{
+t:'circle',
+a:{cx:150,cy:155,r:75}
+},
+
+{
+t:'ellipse',
+a:{
+cx:88,
+cy:125,
+rx:28,
+ry:55,
+transform:'rotate(-20,88,125)'
+}
+},
+
+{
+t:'ellipse',
+a:{
+cx:212,
+cy:125,
+rx:28,
+ry:55,
+transform:'rotate(20,212,125)'
+}
+},
+
+{
+t:'ellipse',
+a:{cx:125,cy:145,rx:9,ry:13}
+},
+
+{
+t:'ellipse',
+a:{cx:175,cy:145,rx:9,ry:13}
+},
+
+{
+t:'ellipse',
+a:{cx:150,cy:178,rx:18,ry:13}
+}
+
+],
+
+decos:[
+
+{t:'circle',a:{cx:125,cy:145,r:3}},
+{t:'circle',a:{cx:175,cy:145,r:3}},
+
+{
+t:'path',
+a:{d:'M135,195 Q150,205 165,195'}
+}
+
+]
+
+},
+
+
+/* =====================================================
+   29. VENTANA
+===================================================== */
+
+{
+name:'🪟 Ventana',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{
+t:'rect',
+a:{x:45,y:45,width:210,height:210,rx:8}
+},
+
+{
+t:'rect',a:{x:140,y:45,width:20,height:210}
+},
+
+{
+t:'rect',a:{x:45,y:140,width:210,height:20}
+}
+
+],
+
+decos:[]
+
+},
+
+
+/* =====================================================
+   30. MAPA
+===================================================== */
+
+{
+name:'🗺️ Mapa',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{
+t:'path',
+a:{
+d:'M45,70 L110,45 L190,70 L255,45 L255,230 L190,255 L110,230 L45,255 Z'
+}
+},
+
+{
+t:'polygon',
+a:{points:'110,45 110,230 190,255 190,70'}
+},
+
+{
+t:'polygon',
+a:{points:'190,70 190,255 255,230 255,45'}
+}
+
+],
+
+decos:[
+
+{t:'path',a:{d:'M75,175 Q120,125 145,180 T220,125'}},
+
+{t:'circle',a:{cx:150,cy:115,r:7}}
+
+]
+
+},
+
+
+/* =====================================================
+   31. BOTÓN
+===================================================== */
+
+{
+name:'🔘 Botón',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{t:'circle',a:{cx:150,cy:150,r:95}},
+
+{t:'circle',a:{cx:150,cy:150,r:72}}
+
+],
+
+decos:[
+
+{t:'circle',a:{cx:125,cy:125,r:9}},
+{t:'circle',a:{cx:175,cy:125,r:9}},
+{t:'circle',a:{cx:125,cy:175,r:9}},
+{t:'circle',a:{cx:175,cy:175,r:9}}
+
+]
+
+},
+
+
+/* =====================================================
+   32. LÁPIZ
+===================================================== */
+
+{
+name:'✏️ Lápiz',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{
+t:'polygon',
+a:{points:'55,205 205,55 245,95 95,245'}
+},
+
+{
+t:'polygon',
+a:{points:'55,205 45,255 95,245'}
+},
+
+{
+t:'polygon',
+a:{points:'205,55 220,40 260,80 245,95'}
+},
+
+{
+t:'rect',
+a:{
+x:88,
+y:112,
+width:50,
+height:40,
+transform:'rotate(-45,113,132)'
+}
+}
+
+],
+
+decos:[
+
+{t:'line',a:{x1:105,y1:205,x2:145,y2:245}}
+
+]
+
+},
+
+
+/* =====================================================
+   33. REGLA
+===================================================== */
+
+{
+name:'📏 Regla',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{
+t:'rect',
+a:{x:55,y:95,width:190,height:75,rx:8}
+}
+
+],
+
+decos:[
+
+{t:'line',a:{x1:80,y1:115,x2:80,y2:145}},
+{t:'line',a:{x1:105,y1:115,x2:105,y2:135}},
+{t:'line',a:{x1:130,y1:115,x2:130,y2:145}},
+{t:'line',a:{x1:155,y1:115,x2:155,y2:135}},
+{t:'line',a:{x1:180,y1:115,x2:180,y2:145}},
+{t:'line',a:{x1:205,y1:115,x2:205,y2:135}},
+{t:'line',a:{x1:230,y1:115,x2:230,y2:145}}
+
+]
+
+},
+
+
+/* =====================================================
+   34. TIJERA
+===================================================== */
+
+{
+name:'✂️ Tijera',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{
+t:'circle',
+a:{cx:90,cy:210,r:32}
+},
+
+{
+t:'circle',
+a:{cx:150,cy:210,r:32}
+},
+
+{
+t:'polygon',
+a:{points:'105,190 230,55 245,70 125,205'}
+},
+
+{
+t:'polygon',
+a:{points:'135,190 230,245 245,230 150,175'}
+}
+
+],
+
+decos:[
+
+{t:'circle',a:{cx:120,cy:190,r:7}}
+
+]
+
+},
+
+
+/* =====================================================
+   35. LIBRO
+===================================================== */
+
+{
+name:'📖 Libro',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{
+t:'path',
+a:{
+d:'M150,80 C115,55 75,55 50,70 L50,235 C80,220 115,220 150,245 Z'
+}
+},
+
+{
+t:'path',
+a:{
+d:'M150,80 C185,55 225,55 250,70 L250,235 C220,220 185,220 150,245 Z'
+}
+}
+
+],
+
+decos:[
+
+{t:'line',a:{x1:150,y1:80,x2:150,y2:245}},
+{t:'line',a:{x1:75,y1:105,x2:125,y2:115}},
+{t:'line',a:{x1:175,y1:115,x2:225,y2:105}},
+{t:'line',a:{x1:75,y1:135,x2:125,y2:145}},
+{t:'line',a:{x1:175,y1:145,x2:225,y2:135}}
+
+]
+
+},
+
+
+/* =====================================================
+   36. FARO
+===================================================== */
+
+{
+name:'🗼 Faro',
+vb:'0 0 300 300',
+
+zones:[
+
+{t:'rect',a:{x:0,y:0,width:300,height:300,rx:14}},
+
+{
+t:'polygon',
+a:{points:'100,245 120,95 180,95 200,245'}
+},
+
+{
+t:'rect',
+a:{x:105,y:65,width:90,height:30,rx:5}
+},
+
+{
+t:'polygon',
+a:{points:'95,65 205,65 190,45 110,45'}
+},
+
+{
+t:'rect',
+a:{x:130,y:105,width:40,height:55,rx:4}
+},
+
+{
+t:'rect',
+a:{x:55,y:245,width:190,height:18,rx:5}
+}
+
+],
+
+decos:[
+
+{t:'line',a:{x1:130,y1:180,x2:170,y2:180}},
+{t:'line',a:{x1:125,y1:205,x2:175,y2:205}},
+{t:'line',a:{x1:120,y1:230,x2:180,y2:230}}
+
+]
+
+},
+
+
+/* =====================================================
+   37. ISLA
 ===================================================== */
 
 {
@@ -2059,6 +4112,1105 @@ decos:[
 ];
 
 
+/* =====================================================
+   ESTADO
+===================================================== */
+
+let currentColor=COLORS[0];
+
+let isEraser=false;
+
+let currentIdx=0;
+
+const colors=DRAWINGS.map(
+d=>d.zones.map(()=>'white')
+);
+
+
+/* =====================================================
+   CANVAS
+===================================================== */
+
+const canvas=document.getElementById('paint-canvas');
+
+const ctx=canvas.getContext('2d');
+
+const STROKE='#222';
+
+const STROKE_W=2.5;
+
+const DECO_STROKE='#555';
+
+const DECO_W=1.5;
+
+const LOGIC=300;
+
+
+/* =====================================================
+   TAMAÑO
+===================================================== */
+
+function resizeCanvas(){
+
+const max=560;
+
+const available=Math.min(
+window.innerWidth-16,
+max
+);
+
+canvas.width=available;
+
+canvas.height=available;
+
+canvas.style.width=available+'px';
+
+canvas.style.height=available+'px';
+
+redraw();
+
+}
+
+
+function scale(){
+
+return canvas.width/LOGIC;
+
+}
+
+
+/* =====================================================
+   TRANSFORMACIÓN
+   CORREGIDA
+===================================================== */
+
+function applyTransform(t,sc){
+
+const m=t.match(
+/rotate\(([\d.-]+),([\d.-]+),([\d.-]+)\)/
+);
+
+if(!m)return;
+
+const ang=parseFloat(m[1])*Math.PI/180;
+
+const cx=parseFloat(m[2])*sc;
+
+const cy=parseFloat(m[3])*sc;
+
+ctx.translate(cx,cy);
+
+ctx.rotate(ang);
+
+ctx.translate(-cx,-cy);
+
+}
+
+
+/* =====================================================
+   DIBUJAR ELEMENTO
+===================================================== */
+
+function drawEl(el,fillColor,isDeco){
+
+const sc=scale();
+
+const A=el.a;
+
+ctx.save();
+
+if(A.transform){
+applyTransform(A.transform,sc);
+}
+
+ctx.beginPath();
+
+
+if(el.t==='ellipse'){
+
+ctx.ellipse(
+A.cx*sc,
+A.cy*sc,
+A.rx*sc,
+A.ry*sc,
+0,
+0,
+Math.PI*2
+);
+
+}
+
+
+else if(el.t==='circle'){
+
+ctx.arc(
+A.cx*sc,
+A.cy*sc,
+A.r*sc,
+0,
+Math.PI*2
+);
+
+}
+
+
+else if(el.t==='rect'){
+
+const r=(A.rx||0)*sc;
+
+if(r>0){
+
+ctx.roundRect(
+A.x*sc,
+A.y*sc,
+A.width*sc,
+A.height*sc,
+r
+);
+
+}else{
+
+ctx.rect(
+A.x*sc,
+A.y*sc,
+A.width*sc,
+A.height*sc
+);
+
+}
+
+}
+
+
+else if(el.t==='polygon'){
+
+const pts=A.points
+.split(' ')
+.map(p=>p.split(',').map(Number));
+
+ctx.moveTo(
+pts[0][0]*sc,
+pts[0][1]*sc
+);
+
+pts.slice(1).forEach(p=>{
+ctx.lineTo(
+p[0]*sc,
+p[1]*sc
+);
+});
+
+ctx.closePath();
+
+}
+
+
+else if(el.t==='path'){
+
+try{
+
+const path=new Path2D(A.d);
+
+ctx.save();
+
+ctx.scale(sc,sc);
+
+if(isDeco){
+
+ctx.strokeStyle=DECO_STROKE;
+ctx.lineWidth=DECO_W;
+ctx.lineCap='round';
+ctx.lineJoin='round';
+ctx.stroke(path);
+
+}else{
+
+ctx.fillStyle=fillColor;
+ctx.fill(path);
+
+ctx.strokeStyle=STROKE;
+ctx.lineWidth=STROKE_W;
+ctx.lineCap='round';
+ctx.lineJoin='round';
+ctx.stroke(path);
+
+}
+
+ctx.restore();
+
+ctx.restore();
+
+return;
+
+}catch(e){
+
+console.warn('Path no compatible:',A.d);
+
+}
+
+}
+
+
+else if(el.t==='line'){
+
+ctx.moveTo(
+A.x1*sc,
+A.y1*sc
+);
+
+ctx.lineTo(
+A.x2*sc,
+A.y2*sc
+);
+
+}
+
+
+/* DIBUJO NORMAL */
+
+if(isDeco){
+
+ctx.strokeStyle=DECO_STROKE;
+
+ctx.lineWidth=DECO_W*sc;
+
+ctx.lineCap='round';
+
+ctx.lineJoin='round';
+
+ctx.stroke();
+
+}else{
+
+ctx.fillStyle=fillColor;
+
+ctx.fill();
+
+ctx.strokeStyle=STROKE;
+
+ctx.lineWidth=STROKE_W*sc;
+
+ctx.lineCap='round';
+
+ctx.lineJoin='round';
+
+ctx.stroke();
+
+}
+
+ctx.restore();
+
+}
+
+
+/* =====================================================
+   REDIBUJAR
+===================================================== */
+
+function redraw(){
+
+const d=DRAWINGS[currentIdx];
+
+ctx.clearRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
+
+ctx.fillStyle='white';
+
+ctx.fillRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
+
+d.zones.forEach(
+(el,i)=>
+drawEl(
+el,
+colors[currentIdx][i],
+false
+)
+);
+
+(d.decos||[]).forEach(
+el=>
+drawEl(
+el,
+'none',
+true
+)
+);
+
+}
+
+
+/* =====================================================
+   TRANSFORMACIÓN INVERSA
+===================================================== */
+
+function inverseTransformPoint(A,x,y){
+
+if(!A.transform){
+return {x,y};
+}
+
+const m=A.transform.match(
+/rotate\(([\d.-]+),([\d.-]+),([\d.-]+)\)/
+);
+
+if(!m){
+return {x,y};
+}
+
+const ang=
+-parseFloat(m[1])*Math.PI/180;
+
+const cx=parseFloat(m[2]);
+
+const cy=parseFloat(m[3]);
+
+const dx=x-cx;
+
+const dy=y-cy;
+
+return{
+
+x:
+cx+
+dx*Math.cos(ang)-
+dy*Math.sin(ang),
+
+y:
+cy+
+dx*Math.sin(ang)+
+dy*Math.cos(ang)
+
+};
+
+}
+
+
+/* =====================================================
+   ZONA PATH REAL
+===================================================== */
+
+function pointInPathExact(
+d,
+x,
+y
+){
+
+try{
+
+const path=new Path2D(d);
+
+return ctx.isPointInPath(
+path,
+x,
+y
+);
+
+}catch(e){
+
+return false;
+
+}
+
+}
+
+
+/* =====================================================
+   POLÍGONO
+===================================================== */
+
+function pointInPolygon(x,y,pts){
+
+let inside=false;
+
+for(
+let i=0,
+j=pts.length-1;
+
+i<pts.length;
+
+j=i++
+){
+
+const xi=pts[i][0];
+const yi=pts[i][1];
+
+const xj=pts[j][0];
+const yj=pts[j][1];
+
+if(
+((yi>y)!=(yj>y)) &&
+(
+x<
+(xj-xi)*
+(y-yi)/
+(yj-yi)+
+xi
+)
+){
+
+inside=!inside;
+
+}
+
+}
+
+return inside;
+
+}
+
+
+/* =====================================================
+   DETECTAR ZONA
+===================================================== */
+
+function isInZone(el,x,y){
+
+const A=el.a;
+
+const p=inverseTransformPoint(
+A,
+x,
+y
+);
+
+const tx=p.x;
+const ty=p.y;
+
+
+/* ELIPSE */
+
+if(el.t==='ellipse'){
+
+const dx=(tx-A.cx)/A.rx;
+
+const dy=(ty-A.cy)/A.ry;
+
+return dx*dx+dy*dy<=1;
+
+}
+
+
+/* CÍRCULO */
+
+if(el.t==='circle'){
+
+const dx=tx-A.cx;
+
+const dy=ty-A.cy;
+
+return dx*dx+dy*dy<=A.r*A.r;
+
+}
+
+
+/* RECT */
+
+if(el.t==='rect'){
+
+return(
+tx>=A.x &&
+tx<=A.x+A.width &&
+ty>=A.y &&
+ty<=A.y+A.height
+);
+
+}
+
+
+/* POLÍGONO */
+
+if(el.t==='polygon'){
+
+return pointInPolygon(
+tx,
+ty,
+A.points
+.split(' ')
+.map(
+p=>p.split(',').map(Number)
+)
+);
+
+}
+
+
+/* PATH */
+
+if(el.t==='path'){
+
+return pointInPathExact(
+A.d,
+tx,
+ty
+);
+
+}
+
+return false;
+
+}
+
+
+/* =====================================================
+   HIT ZONE
+===================================================== */
+
+function hitZone(px,py){
+
+const d=DRAWINGS[currentIdx];
+
+const sc=scale();
+
+const x=px/sc;
+const y=py/sc;
+
+
+/*
+ Se comprueba desde arriba hacia abajo.
+ La última zona está visualmente encima.
+*/
+
+for(
+let i=d.zones.length-1;
+i>=0;
+i--
+){
+
+if(
+isInZone(
+d.zones[i],
+x,
+y
+)
+){
+
+return i;
+
+}
+
+}
+
+return -1;
+
+}
+
+
+/* =====================================================
+   POSICIÓN
+===================================================== */
+
+function getPos(e){
+
+const r=
+canvas.getBoundingClientRect();
+
+const src=e.touches?
+e.touches[0]:
+e;
+
+return{
+
+x:src.clientX-r.left,
+
+y:src.clientY-r.top
+
+};
+
+}
+
+
+/* =====================================================
+   PINTAR
+===================================================== */
+
+function handlePaint(e){
+
+if(e.cancelable){
+e.preventDefault();
+}
+
+const p=getPos(e);
+
+const zi=hitZone(
+p.x,
+p.y
+);
+
+if(zi<0)return;
+
+colors[currentIdx][zi]=
+isEraser?
+'white':
+currentColor;
+
+redraw();
+
+}
+
+
+/* =====================================================
+   EVENTOS
+===================================================== */
+
+canvas.addEventListener(
+'click',
+handlePaint
+);
+
+canvas.addEventListener(
+'touchstart',
+handlePaint,
+{passive:false}
+);
+
+
+/* =====================================================
+   GALERÍA
+===================================================== */
+
+const gallery=
+document.getElementById('gallery');
+
+
+function buildMiniSVG(d){
+
+const ns=
+'http://www.w3.org/2000/svg';
+
+let s=
+`<svg
+viewBox="${d.vb}"
+xmlns="${ns}"
+width="50"
+height="50">`;
+
+d.zones.forEach(el=>{
+
+/*
+ El fondo se muestra también
+ en la miniatura.
+*/
+
+if(el.t==='path'){
+
+s+=
+`<path
+d="${el.a.d}"
+fill="white"
+stroke="#333"
+stroke-width="3"
+stroke-linecap="round"
+stroke-linejoin="round"/>`;
+
+return;
+
+}
+
+s+=
+`<${el.t}
+fill="white"
+stroke="#333"
+stroke-width="3"
+stroke-linecap="round"
+stroke-linejoin="round"`;
+
+Object.entries(el.a).forEach(
+([k,v])=>{
+s+=` ${k}="${v}"`;
+}
+);
+
+s+='/>';
+
+});
+
+return s+'</svg>';
+
+}
+
+
+DRAWINGS.forEach(
+(d,i)=>{
+
+const thumb=
+document.createElement('div');
+
+thumb.className=
+'thumb'+
+(i===0?' active':'');
+
+thumb.innerHTML=
+buildMiniSVG(d);
+
+thumb.addEventListener(
+'click',
+()=>{
+
+document
+.querySelectorAll('.thumb')
+.forEach(
+t=>
+t.classList.remove('active')
+);
+
+thumb.classList.add('active');
+
+currentIdx=i;
+
+document
+.getElementById('drawing-label')
+.textContent=d.name;
+
+redraw();
+
+}
+);
+
+gallery.appendChild(thumb);
+
+}
+);
+
+
+/* =====================================================
+   PALETA
+===================================================== */
+
+const palEl=
+document.getElementById('palette');
+
+
+COLORS.forEach(
+(c,i)=>{
+
+const btn=
+document.createElement('button');
+
+btn.className=
+'cbtn'+
+(i===0?' sel':'');
+
+btn.style.background=c;
+
+if(c==='#FFFFFF'){
+
+btn.style.border='3px solid #ddd';
+
+}
+
+btn.addEventListener(
+'click',
+()=>{
+
+isEraser=false;
+
+currentColor=c;
+
+document
+.querySelectorAll('.cbtn')
+.forEach(
+b=>
+b.classList.remove('sel')
+);
+
+btn.classList.add('sel');
+
+const borrar=
+document.getElementById('btn-borra');
+
+borrar.style.opacity='1';
+
+borrar
+.querySelector('span')
+.textContent='🩹';
+
+}
+);
+
+palEl.appendChild(btn);
+
+}
+);
+
+
+/* =====================================================
+   BORRADOR
+===================================================== */
+
+document
+.getElementById('btn-borra')
+.addEventListener(
+'click',
+()=>{
+
+isEraser=!isEraser;
+
+const b=
+document.getElementById('btn-borra');
+
+b.style.opacity=
+isEraser?
+'.5':
+'1';
+
+b
+.querySelector('span')
+.textContent=
+isEraser?
+'✏️':
+'🩹';
+
+if(isEraser){
+
+document
+.querySelectorAll('.cbtn')
+.forEach(
+x=>
+x.classList.remove('sel')
+);
+
+}
+
+}
+);
+
+
+/* =====================================================
+   LIMPIAR
+===================================================== */
+
+document
+.getElementById('btn-limpia')
+.addEventListener(
+'click',
+()=>{
+
+if(
+!confirm(
+'¿Borrar todos los colores de este dibujo?'
+)
+){
+
+return;
+
+}
+
+colors[currentIdx]=
+DRAWINGS[currentIdx]
+.zones
+.map(
+()=>'white'
+);
+
+redraw();
+
+toast('Dibujo limpio 🧼');
+
+}
+);
+
+
+/* =====================================================
+   GUARDAR
+===================================================== */
+
+document
+.getElementById('btn-guarda')
+.addEventListener(
+'click',
+()=>{
+
+const a=
+document.createElement('a');
+
+a.download=
+'coloreo-'+
+Date.now()+
+'.png';
+
+a.href=
+canvas.toDataURL('image/png');
+
+a.click();
+
+toast('¡Dibujo guardado! 🎉');
+
+}
+);
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+function toast(msg){
+
+const t=
+document.getElementById('toast');
+
+t.textContent=msg;
+
+t.classList.add('show');
+
+setTimeout(
+()=>
+t.classList.remove('show'),
+2200
+);
+
+}
+
+
+/* =====================================================
+   INSTALACIÓN PWA
+===================================================== */
+
+let deferredPrompt=null;
+
+const instalarBtn=
+document.getElementById('instalar-app');
+
+
+window.addEventListener(
+'beforeinstallprompt',
+e=>{
+
+e.preventDefault();
+
+deferredPrompt=e;
+
+instalarBtn.style.display='block';
+
+}
+);
+
+
+instalarBtn.addEventListener(
+'click',
+async()=>{
+
+if(!deferredPrompt){
+
+toast(
+'Abre el menú del navegador y selecciona "Instalar aplicación".'
+);
+
+return;
+
+}
+
+deferredPrompt.prompt();
+
+const resultado=
+await deferredPrompt.userChoice;
+
+console.log(
+'Instalación:',
+resultado.outcome
+);
+
+deferredPrompt=null;
+
+instalarBtn.style.display='none';
+
+}
+);
+
+
+window.addEventListener(
+'appinstalled',
+()=>{
+
+instalarBtn.style.display='none';
+
+deferredPrompt=null;
+
+toast(
+'¡Aplicación instalada! 🎉'
+);
+
+}
+);
+
+
+/* =====================================================
+   SERVICE WORKER
+===================================================== */
+
+if(
+'serviceWorker'
+in navigator
+){
+
+window.addEventListener(
+'load',
+()=>{
+
+navigator.serviceWorker
+.register('./service-worker.js')
+
+.then(
+()=>
+console.log(
+'Service Worker registrado correctamente'
+)
+)
+
+.catch(
+error=>
+console.error(
+'Error del Service Worker:',
+error
+)
+);
+
+}
+);
+
+}
+
+
+/* =====================================================
+   INICIO
+===================================================== */
+
+window.addEventListener(
+'DOMContentLoaded',
+()=>{
+
+document
+.getElementById('drawing-label')
+.textContent=
+DRAWINGS[0].name;
+
+resizeCanvas();
+
+}
+);
+
+
+window.addEventListener(
+'resize',
+resizeCanvas
+);
+
+</script>
+
+</body>
+</html>
+
+
+
+  
 /* =====================================================
    ESTADO
 ===================================================== */
