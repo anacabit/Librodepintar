@@ -352,151 +352,42 @@ const DRAWINGS=[
    1. FLOR
 ===================================================== */
 
+  const DRAWINGS=[
+
+/* 1 FLOR - TALLO DETRÁS DE PÉTALOS */
 {
-
-name:'🌸 Flor',
-
-vb:'0 0 300 300',
-
+name:'🌸 Flor',vb:'0 0 300 300',
 zones:[
+{t:'rect',a:{x:143,y:145,width:14,height:112,rx:7}},
+// tallo
+{t:'ellipse',a:
+{cx:116,cy:226,rx:35,ry:17,transform:'rotate(-25,116,226)'}},
+{t:'ellipse',a:
+{cx:184,cy:226,rx:35,ry:17,transform:'rotate(25,184,226)'}},
 
-/* FONDO */
-{
-t:'rect',
-a:{
-x:0,
-y:0,
-width:300,
-height:300,
-rx:14
-}
-},
-
-/* TALLO — DETRÁS */
-{
-t:'rect',
-a:{
-x:143,
-y:145,
-width:14,
-height:112,
-rx:7
-}
-},
-
-/* HOJAS */
-{
-t:'ellipse',
-a:{
-cx:116,
-cy:226,
-rx:35,
-ry:17,
-transform:'rotate(-25,116,226)'
-}
-},
-
-{
-t:'ellipse',
-a:{
-cx:184,
-cy:226,
-rx:35,
-ry:17,
-transform:'rotate(25,184,226)'
-}
-},
-
-/* PÉTALOS */
-{
-t:'ellipse',
-a:{
-cx:150,
-cy:82,
-rx:30,
-ry:55
-}
-},
-
-{
-t:'ellipse',
-a:{
-cx:150,
-cy:82,
-rx:30,
-ry:55,
-transform:'rotate(60,150,150)'
-}
-},
-
-{
-t:'ellipse',
-a:{
-cx:150,
-cy:82,
-rx:30,
-ry:55,
-transform:'rotate(120,150,150)'
-}
-},
-
-{
-t:'ellipse',
-a:{
-cx:150,
-cy:82,
-rx:30,
-ry:55,
-transform:'rotate(180,150,150)'
-}
-},
-
-{
-t:'ellipse',
-a:{
-cx:150,
-cy:82,
-rx:30,
-ry:55,
-transform:'rotate(240,150,150)'
-}
-},
-
-{
-t:'ellipse',
-a:{
-cx:150,
-cy:82,
-rx:30,
-ry:55,
-transform:'rotate(300,150,150)'
-}
-},
-
-/* CENTRO */
-{
-t:'circle',
-a:{
-cx:150,
-cy:150,
-r:38
-}
-}
-
+/* LOS 6 PÉTALOS */
+{t:'ellipse',a:{cx:150,cy:82,rx:30,ry:55}},
+{t:'ellipse',a:
+{cx:150,cy:82,rx:30,ry:55,transform:'rotate(60,150,150)'}},
+{t:'ellipse',a:
+{cx:150,cy:82,rx:30,ry:55,transform:'rotate(120,150,150)'}},
+{t:'ellipse',a:
+{cx:150,cy:82,rx:30,ry:55,transform:'rotate(180,150,150)'}},
+{t:'ellipse',a:
+{cx:150,cy:82,rx:30,ry:55,transform:'rotate(240,150,150)'}},
+{t:'ellipse',a:
+{cx:150,cy:82,rx:30,ry:55,transform:'rotate(300,150,150)'}},
+{t:'circle',a:{cx:150,cy:150,r:38}}
 ],
-
 decos:[
+{t:'circle',a:{cx:150,cy:138,r:4}},{t:'circle',a:
+{cx:163,cy:144,r:4}},
+{t:'circle',a:{cx:163,cy:157,r:4}},{t:'circle',a:
+{cx:150,cy:163,r:4}},
+{t:'circle',a:{cx:137,cy:157,r:4}},{t:'circle',a:
+{cx:137,cy:144,r:4}}
+]},
 
-{t:'circle',a:{cx:150,cy:138,r:4}},
-{t:'circle',a:{cx:163,cy:144,r:4}},
-{t:'circle',a:{cx:163,cy:157,r:4}},
-{t:'circle',a:{cx:150,cy:163,r:4}},
-{t:'circle',a:{cx:137,cy:157,r:4}},
-{t:'circle',a:{cx:137,cy:144,r:4}}
-
-]
-
-},
 
 
 /* =====================================================
